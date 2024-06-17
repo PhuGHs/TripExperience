@@ -14,6 +14,15 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-TripExperience-TripExperienceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-TripExperience-TripExperienceTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		1E9276E7F96E475BA1C87777 /* NunitoSans_10pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEF480C8CFF0419C98C36611 /* NunitoSans_10pt-Black.ttf */; };
+		90279C245AF347F49AA7445D /* NunitoSans_10pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EFC98D8BE384CC388EA9BF6 /* NunitoSans_10pt-Bold.ttf */; };
+		DB914E4798134195BA54EB7F /* NunitoSans_10pt-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F7DD51EC4F2433CA61AAC2C /* NunitoSans_10pt-BoldItalic.ttf */; };
+		08C5E299D7CD4A5995A4328F /* NunitoSans_10pt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F37817E881824D8D9F3B690E /* NunitoSans_10pt-Italic.ttf */; };
+		3999FFC45CBB4C47887138C9 /* NunitoSans_10pt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B8441C0842F4C02A2894AAC /* NunitoSans_10pt-Light.ttf */; };
+		4ECA5D227264498D892846F0 /* NunitoSans_10pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 909D41208D954534878295E6 /* NunitoSans_10pt-Medium.ttf */; };
+		0454A66976224321842734AF /* NunitoSans_10pt-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 794C55B4ED4D475688CE32C9 /* NunitoSans_10pt-Regular.ttf */; };
+		60109C9E471049169B580C6B /* NunitoSans_10pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF002C5847594129874B93A5 /* NunitoSans_10pt-SemiBold.ttf */; };
+		83B937BBBB6D4F76BDFADBAB /* NunitoSans_10pt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92E58295A3DC4EBBA5E4DA02 /* NunitoSans_10pt-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +45,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TripExperience/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TripExperience/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TripExperience/main.m; sourceTree = "<group>"; };
-	    13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TripExperience/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TripExperience/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-TripExperience-TripExperienceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TripExperience-TripExperienceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-TripExperience.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripExperience.debug.xcconfig"; path = "Target Support Files/Pods-TripExperience/Pods-TripExperience.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TripExperience.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripExperience.release.xcconfig"; path = "Target Support Files/Pods-TripExperience/Pods-TripExperience.release.xcconfig"; sourceTree = "<group>"; };
@@ -45,6 +54,15 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TripExperience/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-TripExperience-TripExperienceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TripExperience-TripExperienceTests.release.xcconfig"; path = "Target Support Files/Pods-TripExperience-TripExperienceTests/Pods-TripExperience-TripExperienceTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		DEF480C8CFF0419C98C36611 /* NunitoSans_10pt-Black.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Black.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9EFC98D8BE384CC388EA9BF6 /* NunitoSans_10pt-Bold.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Bold.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7F7DD51EC4F2433CA61AAC2C /* NunitoSans_10pt-BoldItalic.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-BoldItalic.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F37817E881824D8D9F3B690E /* NunitoSans_10pt-Italic.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Italic.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6B8441C0842F4C02A2894AAC /* NunitoSans_10pt-Light.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Light.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		909D41208D954534878295E6 /* NunitoSans_10pt-Medium.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Medium.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		794C55B4ED4D475688CE32C9 /* NunitoSans_10pt-Regular.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-Regular.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF002C5847594129874B93A5 /* NunitoSans_10pt-SemiBold.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-SemiBold.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		92E58295A3DC4EBBA5E4DA02 /* NunitoSans_10pt-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "NunitoSans_10pt-SemiBoldItalic.ttf"; path = "../src/assets/fonts/NunitoSans_10pt-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +142,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5C1BBA9B3F2646A78794BDFB /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +168,23 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5C1BBA9B3F2646A78794BDFB /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				DEF480C8CFF0419C98C36611 /* NunitoSans_10pt-Black.ttf */,
+				9EFC98D8BE384CC388EA9BF6 /* NunitoSans_10pt-Bold.ttf */,
+				7F7DD51EC4F2433CA61AAC2C /* NunitoSans_10pt-BoldItalic.ttf */,
+				F37817E881824D8D9F3B690E /* NunitoSans_10pt-Italic.ttf */,
+				6B8441C0842F4C02A2894AAC /* NunitoSans_10pt-Light.ttf */,
+				909D41208D954534878295E6 /* NunitoSans_10pt-Medium.ttf */,
+				794C55B4ED4D475688CE32C9 /* NunitoSans_10pt-Regular.ttf */,
+				CF002C5847594129874B93A5 /* NunitoSans_10pt-SemiBold.ttf */,
+				92E58295A3DC4EBBA5E4DA02 /* NunitoSans_10pt-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +281,15 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				1E9276E7F96E475BA1C87777 /* NunitoSans_10pt-Black.ttf in Resources */,
+				90279C245AF347F49AA7445D /* NunitoSans_10pt-Bold.ttf in Resources */,
+				DB914E4798134195BA54EB7F /* NunitoSans_10pt-BoldItalic.ttf in Resources */,
+				08C5E299D7CD4A5995A4328F /* NunitoSans_10pt-Italic.ttf in Resources */,
+				3999FFC45CBB4C47887138C9 /* NunitoSans_10pt-Light.ttf in Resources */,
+				4ECA5D227264498D892846F0 /* NunitoSans_10pt-Medium.ttf in Resources */,
+				0454A66976224321842734AF /* NunitoSans_10pt-Regular.ttf in Resources */,
+				60109C9E471049169B580C6B /* NunitoSans_10pt-SemiBold.ttf in Resources */,
+				83B937BBBB6D4F76BDFADBAB /* NunitoSans_10pt-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
