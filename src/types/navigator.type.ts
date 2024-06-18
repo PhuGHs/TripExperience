@@ -7,6 +7,8 @@ export type RootStackParamList = {
     DestinationDetails: { destinationId: number }
     ReviewScreen: { destinationId: number },
     Tabs: undefined;
+    SearchDestinationRatingScreen: undefined;
+    ReviewDestinationScreen: undefined;
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -15,6 +17,8 @@ export type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'Sign
 export type DestinationDetailsScreenProps = NativeStackScreenProps<RootStackParamList, 'DestinationDetails'>;
 export type ReviewScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ReviewScreen'>;
 export type TabsScreenProps = NativeStackScreenProps<RootStackParamList, 'Tabs'>;
+export type SearchDestinationRatingScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchDestinationRatingScreen'>;
+export type ReviewDestinationScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ReviewDestinationScreen'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

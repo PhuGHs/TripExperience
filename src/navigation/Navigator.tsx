@@ -8,6 +8,8 @@ import WelcomeScreen from '@screen/WelcomeScreen';
 import { RootStackParamList } from '@type/navigator.type';
 import React from 'react';
 import Tabs from './BottomTab';
+import SearchDestinationRatingScreen from '@screen/SearchDestinationRatingScreen';
+import ReviewDestination from '@screen/ReviewDestination';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +26,8 @@ const Navigator = () => {
         <NavigationContainer theme={theme}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='Tabs' component={Tabs} />
+                <Stack.Screen name='SearchDestinationRatingScreen' component={SearchDestinationRatingScreen} />
+                <Stack.Screen name='ReviewDestinationScreen' component={ReviewDestination} />
                 <Stack.Screen name='Welcome' component={WelcomeScreen} />
                 <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
                 <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
