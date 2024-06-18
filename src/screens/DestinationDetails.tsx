@@ -58,7 +58,7 @@ const DestinationDetails = ({
                 <Text className='text-2xl text-primary font-bold'>Chợ Bến Thành</Text>
                 <View className='flex flex-row items-center space-x-2 mb-4'>
                     <FontAwesomeIcon icon={faLocationDot} size={25} color='#7F7F81' />
-                    <Text className='text-secondary text-lg font-bold'>Ho Chi Minh City</Text>
+                    <Text className='text-secondary text-lg font-bold'>Thành phố Hồ Chí Minh</Text>
                 </View>
                 <View className='flex flex-row justify-between'>
                     <View className='flex flex-row space-x-3'>
@@ -67,7 +67,7 @@ const DestinationDetails = ({
                         </TouchableOpacity>
                         <View className='flex flex-col justify-around'>
                             <Text className='text-lg font-bold text-primary'>6.8KM</Text>
-                            <Text className='text-lg text-secondary'>Distance</Text>
+                            <Text className='text-lg text-secondary'>Khoảng cách</Text>
                         </View>
                     </View>
                     <View className='flex flex-row space-x-3'>
@@ -78,15 +78,15 @@ const DestinationDetails = ({
                         </TouchableOpacity>
                         <View className='flex flex-col justify-around'>
                             <Text className='text-lg font-bold text-primary'>4.5</Text>
-                            <Text className='text-lg text-secondary'>Ratings</Text>
+                            <Text className='text-lg text-secondary'>Đánh giá</Text>
                         </View>
                     </View>
                 </View>
                 <View className='flex flex-col space-y-2'>
-                    <Text className='text-xl font-bold text-primary'>Description</Text>
+                    <Text className='text-xl font-bold text-primary'>Mô tả về địa điểm</Text>
                     <Text className='text-lg text-secondary'>Bến Thành Market is one of the most famous landmarks in Ho Chi Minh City, Vietnam. It's located in District 1, at the intersection of Lê Lợi, Hùng Vương, Lê Thánh Tôn, and Phan Chu Trinh streets. The market is not just a commercial hub but also a historical symbol of the city's vibrant culture and economy.</Text>
                 </View>
-                <Text className='text-primary text-xl font-bold'>You may like these destinations</Text>
+                <Text className='text-primary text-xl font-bold'>Bạn có thể thích</Text>
                 <FlatList
                     horizontal={true}
                     data={arr}

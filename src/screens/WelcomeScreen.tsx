@@ -20,12 +20,12 @@ const WelcomeScreen = ({navigation}: WelcomeScreenProps) => {
                     />
                     <View className='flex flex-row'>
                         <Text className='text-2xl font-nunito-regular text-[#1E1E1E]'>Trip</Text>
-                        <Text className='text-2xl text-[#1E1E1E]'>Experience</Text>
+                        <Text className='text-2xl text-[#1E1E1E]'>X</Text>
                     </View>
                 </View>
                 <View className='space-y-4 mt-4'>
-                    <Text className='text-2xl mx-4 font-bold text-[#1E1E1E]'>Experience the World Together</Text>
-                    <Text className='text-lg mx-4 text-[#7F7F81]'>Connect with fellow travelers from around the globe and share your most memorable adventures on Trip Experience.</Text>
+                    <Text className='text-2xl mx-4 font-bold text-[#1E1E1E]'>Du lịch mọi nơi trên Thế giới cùng TripX</Text>
+                    <Text className='text-lg mx-4 text-[#7F7F81]'>Kết nối với những người du lịch từ khắp nơi trên thế giới và chia sẻ những cuộc phiêu lưu đáng nhớ nhất của bạn trên TripX..</Text>
                 </View>
             </View>
             <View className='w-full h-[20%] item-center'>
@@ -33,12 +33,12 @@ const WelcomeScreen = ({navigation}: WelcomeScreenProps) => {
                         <TouchableOpacity 
                             onPress={() => navigation.push('SignIn')}
                             className='bg-[#FF6F61] py-4 rounded-full'>
-                            <Text className='text-white text-center text-lg'>Login</Text>
+                            <Text className='text-white text-center text-lg'>Đăng nhập</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             onPress={() => navigation.push('SignUp')}
-                            className='bg-white rounded-full border-[1px] py-4'>
-                            <Text className='text-gray-700 text-center text-lg border-gray-700 text-[#1E1E1E]'>Register</Text>
+                            className='bg-white rounded-full border-[1px] border-[#1E1E1E] py-4'>
+                            <Text className='text-gray-700 text-center text-lg border-gray-700 text-[#1E1E1E]'>Đăng ký</Text>
                         </TouchableOpacity>
                     </View>
             </View>

@@ -17,7 +17,7 @@ const Post = () => {
                     <Text className='font-bold text-slate-700 text-lg'>Le Van Phu</Text>
                     <View className='flex flex-row space-x-2 items-center'>
                         <FontAwesomeIcon icon={faUsers} color='#FF6F61' size={20} />
-                        <Text className='text-main'>Ho Chi Minh City</Text>
+                        <Text className='text-main'>Tp. HCM</Text>
                     </View>
                 </View>
             </View>

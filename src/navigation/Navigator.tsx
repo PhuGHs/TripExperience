@@ -23,10 +23,10 @@ const Navigator = () => {
     return (
         <NavigationContainer theme={theme}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name='Welcome' component={WelcomeScreen} />
                 <Stack.Screen name='HomeScreen' component={HomeScreen} />
                 <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
                 <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
-                <Stack.Screen name='Welcome' component={WelcomeScreen} />
                 <Stack.Screen name='SignIn' component={SignInScreen} />
                 <Stack.Screen name='SignUp' component={SignUpScreen} />
             </Stack.Navigator>
