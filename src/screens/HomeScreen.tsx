@@ -2,18 +2,18 @@ import Destination from '@component/Destination';
 import Post from '@component/Post';
 import { faGlobeAsia, faLocationDot, faLocationPin } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { HomeScreenScreenProps } from '@type/navigator.type';
+import { TabsScreenProps } from '@type/navigator.type';
 import React from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const HomeScreen = ({ navigation }: HomeScreenScreenProps) => {
+const HomeScreen = ({ navigation }: TabsScreenProps) => {
     return (
         <View className='flex flex-1 h-full w-full'>
             <ScrollView className='h-full'>
                 <View className='h-[200px] px-6 pt-6 pb-2 bg-main flex-row justify-between'>
                     <View className='flex flex-col justify-around'>
-                        <Text className='font-bold text-white text-4xl'>Khám phá nào</Text>
+                        <Text className='font-bold text-white text-4xl'>Khám phá</Text>
                         <View className='flex flex-row items-center space-x-2'>
                             <Text className='text-white font-bold text-lg'>Thành phố Hồ Chí Minh</Text>
                             <FontAwesomeIcon icon={faLocationDot} size={25} color='white'/>
