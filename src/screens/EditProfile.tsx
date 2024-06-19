@@ -6,11 +6,23 @@ import React from 'react';
 import { TouchableOpacity, View, Text, Image, TextInput } from 'react-native';
 import { CameraIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {ImageLibraryOptions, ImagePickerResponse, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const EditProfile = ({
     route,
     navigation,
 }: EditProfileScreenScreenProps & { route: RouteProp<RootStackParamList, 'EditProfileScreen'> }) => {
+
+    const pickImages = async () => {
+        const options: ImageLibraryOptions = {
+            mediaType: 'photo',
+            selectionLimit: 1,
+            includeBase64: true,
+            presentationStyle: 'fullScreen',
+        };
+        const result: ImagePickerResponse = await launchImageLibrary(options);
+        console.log(result);
+    };
     return (
         <SafeAreaView className='flex flex-1 mx-4'>
             <View className='flex flex-row justify-between items-center'>
@@ -25,7 +37,9 @@ const EditProfile = ({
                 <View className='w-[10%]'></View>
             </View>
             <View className='space-y-6 my-4'>
-                <View className='items-center'>
+                <TouchableOpacity 
+                    onPress={pickImages}
+                    className='items-center'>
                     <View style={{width: 100, height: 100, borderRadius: 100/2}}>
                         <Image
                             source={require('@asset/images/benthanh.jpg')}
@@ -35,7 +49,7 @@ const EditProfile = ({
                             <CameraIcon color='#1e1e1e' size={24}/>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View className='space-y-2'>
                     <Text className='text-primary font-bold text-base'>Tên</Text>
                     <TextInput

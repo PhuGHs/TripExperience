@@ -18,7 +18,7 @@ const AccountScreen = ({ navigation }: TabsScreenProps) => {
             <View className='flex flex-col items-start'>
                 <ArrowButton name='Hồ sơ' icon={UserCircleIcon} press={() => navigation.push('ProfileScreen')}/>
                 <View className='h-[2px] w-full bg-slate-300'></View>
-                <ArrowButton name='Tin nhắn' icon={EnvelopeIcon} press={() => {}}/>
+                <ArrowButton name='Tin nhắn' icon={EnvelopeIcon} press={() => navigation.push('ChatScreen')}/>
                 <View className='h-[2px] w-full bg-slate-300'></View>
                 <ArrowButton name='Cài đặt' icon={Cog6ToothIcon} press={() => {}}/>
                 <View className='h-[2px] w-full bg-slate-300'></View>
