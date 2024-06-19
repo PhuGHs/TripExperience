@@ -3,30 +3,13 @@ import { View, Text } from 'react-native';
 
 export type Rating = {
     index: number,
-    type: 'Excellent' | 'Good' | 'Average' | 'Bad' | 'Poor',
+    type: 'Xuất xắc' | 'Rất tốt' | 'Trung bình' | 'Tồi' | 'Tồi tệ',
     percentage: number
 }
 
 interface IRatingProgress {
     rating: Rating
 }
-
-const getColor = (type: 'Excellent' | 'Good' | 'Average' | 'Bad' | 'Poor') => {
-    switch (type) {
-        case 'Excellent':
-            return '#41B06E';
-        case 'Good':
-            return '#92FF39';
-        case 'Average':
-            return '#FCDC2A';
-        case 'Bad':
-            return '#FDA403';
-        case 'Poor':
-            return '#FD0303';
-        default:
-            return '#000000'; // Default color for unknown types
-    }
-};
 
 const RatingProgress = ({ rating }: IRatingProgress) => {
     
@@ -35,8 +18,8 @@ const RatingProgress = ({ rating }: IRatingProgress) => {
             <View style={{ width: '20%' }}>
                 <Text style={{ color: '#555555', fontSize: 16 }}>{rating.type}</Text>
             </View>
-            <View style={{ width: '75%', height: 10, backgroundColor: '#CCCCCC' }}>
-                <View style={{ height: '100%', width: `${rating.percentage}%`, backgroundColor: getColor(rating.type), position: 'absolute', left: 0 }}></View>
+            <View className='rounded-full' style={{ width: '75%', height: 10, backgroundColor: '#CCCCCC' }}>
+                <View className='rounded-full' style={{ height: '100%', width: `${rating.percentage}%`, backgroundColor: '#FF6F61', position: 'absolute', left: 0 }}></View>
             </View>
         </View>
     );

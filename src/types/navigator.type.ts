@@ -9,6 +9,9 @@ export type RootStackParamList = {
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
     ReviewDestinationScreen: undefined;
+    DestinationReviewScreen: { provinceId: number }
+    ProfileScreen: { userId: number }
+    EditProfileScreen: undefined
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -19,6 +22,9 @@ export type ReviewScreenScreenProps = NativeStackScreenProps<RootStackParamList,
 export type TabsScreenProps = NativeStackScreenProps<RootStackParamList, 'Tabs'>;
 export type SearchDestinationRatingScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchDestinationRatingScreen'>;
 export type ReviewDestinationScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ReviewDestinationScreen'>;
+export type DestinationReviewScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'DestinationReviewScreen'>;
+export type ProfileScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ProfileScreen'>;
+export type EditProfileScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'EditProfileScreen'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

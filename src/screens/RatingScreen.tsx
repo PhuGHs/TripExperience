@@ -50,7 +50,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
                 ListHeaderComponent={renderHeader}
-                renderItem={({ item, index }) => <Province press={() => {}} />}
+                renderItem={({ item, index }) => <Province press={() => navigation.push('DestinationReviewScreen')} />}
                 contentContainerStyle={{ paddingBottom: 20 }} // Add some padding at the bottom if needed
             />
         </SafeAreaView>
