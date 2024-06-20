@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountScreen = ({ navigation }: TabsScreenProps) => {
     return (
-        <SafeAreaView className='flex flex-1 mx-4'>
+        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='h-[10%] flex flex-row justify-between items-center'>
                 <Text className='text-primary text-3xl font-bold'>Tài khoản</Text>
                 <Image
@@ -25,8 +25,8 @@ const AccountScreen = ({ navigation }: TabsScreenProps) => {
                 <ArrowButton name='Hỗ trợ' icon={QuestionMarkCircleIcon} press={() => {}}/>
                 <View className='h-[2px] w-full bg-slate-300'></View>
             </View>
-            <TouchableOpacity className='my-8 rounded-full w-full border-[#1e1e1e] border-2 py-4'>
-                <Text className='text-primary font-bold text-xl text-center'>Đăng xuất</Text>
+            <TouchableOpacity className='my-8 rounded-full w-full border-[#1e1e1e] border-[1.5px] py-3'>
+                <Text className='text-primary font-medium text-xl text-center'>Đăng xuất</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );

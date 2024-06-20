@@ -14,22 +14,20 @@
     "prettier:fix": "prettier --write src/**/*.{ts,tsx,json}"
   },
   "dependencies": {
+    "@devvie/bottom-sheet": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-native-fontawesome": "^0.3.2",
-    "@gorhom/bottom-sheet": "^4.6.3",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "burnt": "^0.12.2",
-    "expo": "^51.0.0",
     "expo-font": "~12.0.7",
-    "expo-linear-gradient": "^13.0.2",
-    "expo-modules-core": "^1.12.15",
     "expo-splash-screen": "^0.27.5",
+    "moment": "^2.30.1",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.2",
@@ -46,6 +44,7 @@
     "react-native-screens": "^3.31.1",
     "react-native-star-rating-widget": "^1.8.0",
     "react-native-svg": "^15.3.0",
+    "react-native-ui-datepicker": "^2.0.3",
     "typescript-transform-paths": "^3.4.7"
   },
   "devDependencies": {

@@ -16,13 +16,14 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
     };
 
     return (
-        <SafeAreaView className='flex flex-1 mx-4'>
+        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='h-[7%] justify-between flex-row items-center'>
                 <Text className='text-primary text-3xl font-bold'>Tìm kiếm</Text>
                 <View className='flex flex-row items-center'>
                     <Text className='text-base text-primary'>Địa điểm</Text>
                     <Switch
                         value={!isLocationSearch}
+                        thumbColor='#FF6F61'
                         onValueChange={handleSwitchChange}
                     />
                     <Text className='text-base text-primary'>Bài viết</Text>

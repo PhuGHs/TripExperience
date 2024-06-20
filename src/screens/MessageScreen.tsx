@@ -48,7 +48,7 @@ const MessageScreen = ({
     return (
         <SafeAreaView className='flex flex-1'>
             <SingleSidedShadowBox style={{ overflow: 'hidden'}}>
-                <View className='flex flex-row items-center border-gray-400 border-b-[1px] pb-3 px-4'>
+                <View className='flex flex-row items-center border-gray-400 border-b-[1px] pb-3 px-4 pt-4'>
                     <View className='w-[15%] items-start'>
                         <TouchableOpacity 
                             onPress={() => navigation.pop()}

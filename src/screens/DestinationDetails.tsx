@@ -15,7 +15,7 @@ const DestinationDetails = ({
     navigation,
 }: DestinationDetailsScreenProps & { route: RouteProp<RootStackParamList, 'DestinationDetails'> }) => {
     return (
-        <SafeAreaView className='flex-1 mx-4 space-y-3'>
+        <SafeAreaView className='flex-1 mx-4 space-y-3 mt-4'>
             <View className='items-start'>
                 <TouchableOpacity 
                     onPress={() => navigation.pop()}

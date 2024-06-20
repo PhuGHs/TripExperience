@@ -35,22 +35,8 @@ const ProfileScreen = ({
         setDidEdit: setIntroductionDidEdit,
     } = useInput({ defaultValue: '', validationFn: (value) => value.length > 6 });
 
-    // const pickImage = async () => {
-    //     try {
-    //         const result = await ImagePicker.launchImageLibraryAsync({
-    //             mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //             allowsEditing: true,
-    //             aspect: [4, 3],
-    //             quality: 1,
-    //             base64: true,
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
     return (
-        <SafeAreaView className='flex flex-1 mx-4'>
+        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row justify-between items-center'>
                 <View className=''>
                     <TouchableOpacity 

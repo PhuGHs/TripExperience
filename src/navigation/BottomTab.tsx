@@ -62,7 +62,7 @@ const Tabs = () => {
                 component={PlanScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={HeartIcon} label="Lập kế hoạch" focused={focused} />
+                        <CustomTabBarIcon icon={HeartIcon} label="Kế hoạch" focused={focused} />
                     ),
                 }}
             />

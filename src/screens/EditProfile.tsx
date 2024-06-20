@@ -24,7 +24,7 @@ const EditProfile = ({
         console.log(result);
     };
     return (
-        <SafeAreaView className='flex flex-1 mx-4'>
+        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row justify-between items-center'>
                 <View className=''>
                     <TouchableOpacity 

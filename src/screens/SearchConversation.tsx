@@ -24,7 +24,7 @@ const SearchConversation = ({ navigation }: SearchConversationScreenProps) => {
     );
 
     return (
-        <SafeAreaView className='flex flex-1 mx-4'>
+        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row items-center space-x-4'>
                 <View className=''>
                     <TouchableOpacity 

@@ -1,42 +1,14 @@
-import RatingProgress, { Rating } from '@component/RatingProgress';
 import Review from '@component/Review';
 import { faAngleLeft, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
-import { DestinationReviewScreenScreenProps, ReviewScreenScreenProps, RootStackParamList } from '@type/navigator.type';
+import { DestinationReviewScreenScreenProps, RootStackParamList } from '@type/navigator.type';
 import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import StarRating from 'react-native-star-rating-widget';
 
-const arr: Rating[] = [
-    {
-        index: 0,
-        type: 'Excellent',
-        percentage: 70
-    },
-    {
-        index: 1,
-        type: 'Good',
-        percentage: 20
-    },
-    {
-        index: 2,
-        type: 'Average',
-        percentage: 10
-    },
-    {
-        index: 3,
-        type: 'Bad',
-        percentage: 8
-    },
-    {
-        index: 4,
-        type: 'Poor',
-        percentage: 2
-    },
-];
+const arr: number[] = [1,2,3,4,5];
 
 const DestinationReviewScreen = ({
     route,
@@ -62,7 +34,7 @@ const DestinationReviewScreen = ({
     );
 
     return (
-        <SafeAreaView className='flex-1 mx-4'>
+        <SafeAreaView className='flex-1 mx-4 mt-4'>
             <FlatList
                 ListHeaderComponent={renderHeader}
                 data={arr}

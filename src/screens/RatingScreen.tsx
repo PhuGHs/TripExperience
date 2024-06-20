@@ -11,15 +11,15 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
     const renderHeader = () => (
         <View className='space-y-3'>
             <View className='flex flex-col space-y-6'>
-                <View className='flex flex-row space-x-3'>
+                <View className='flex flex-row space-x-5'>
                     <View className='w-[15%]'>
                         <Image
                             source={require('@asset/images/benthanh.jpg')}
                             style={{width: 60, height: 60, borderRadius: 60/2}}
                         />
                     </View>
-                    <View className='w-[85%] flex flex-col justify-around'>
-                        <Text className='text-primary font-bold text-lg'>Le Van Phu</Text>
+                    <View className='w-[80%] flex flex-col justify-around'>
+                        <Text className='text-primary font-medium text-lg'>Le Van Phu</Text>
                         <Text className='text-slate-700 text-base'>4 Đánh giá</Text>
                     </View>
                 </View>
@@ -41,7 +41,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
     );
 
     return (
-        <SafeAreaView className='flex flex-1 mx-4 h-full'>
+        <SafeAreaView className='flex flex-1 mx-4 h-full mt-4'>
             <View className='h-[10%]'>
                 <Text className='text-primary text-3xl font-bold'>Đánh giá</Text>
             </View>
@@ -51,7 +51,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                 numColumns={2}
                 ListHeaderComponent={renderHeader}
                 renderItem={({ item, index }) => <Province press={() => navigation.push('DestinationReviewScreen')} />}
-                contentContainerStyle={{ paddingBottom: 20 }} // Add some padding at the bottom if needed
+                contentContainerStyle={{ paddingBottom: 20 }}
             />
         </SafeAreaView>
     );

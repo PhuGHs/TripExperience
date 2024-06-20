@@ -24,7 +24,7 @@ const Message = ({ is_mine }: IMessage) => {
                 </View>
                 <View className={`flex flex-col space-y-2 ${is_mine ? 'mr-3' : ''}`}>
                     <Text
-                        className={`text-gray-700 text-primary font-bold text-base ${is_mine ? 'text-right mr-1' : 'text-left ml-1'}`}
+                        className={`text-gray-700 text-primary font-medium text-base ${is_mine ? 'text-right mr-1' : 'text-left ml-1'}`}
                     >
                         Jackson
                     </Text>
@@ -38,8 +38,8 @@ const Message = ({ is_mine }: IMessage) => {
                             kkkkkkkkkkkkkkkkkkkkkkkksd ssssssssssssssssssssssssss
                         </Text>
                     </TouchableOpacity>
+                    {visible && <Text className={`${is_mine ? 'text-right' : 'text-left' }`}>5:04 PM</Text>}
                 </View>
-                {visible && <Text>5:04 PM</Text>}
             </View>
         </View>
     );
