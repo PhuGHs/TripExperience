@@ -3,10 +3,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { DestinationDetailsScreenProps } from '@type/navigator.type';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '@type/navigator.type';
-import { FlatList, Image, TouchableOpacity, View, Text, ScrollView } from 'react-native';
+import { FlatList, Image, TouchableOpacity, View, Text, ScrollView, StyleSheet } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft, faClockFour, faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import Destination from '@component/Destination';
+import MapView, { Marker } from 'react-native-maps';
+import { MapPinIcon } from 'react-native-heroicons/outline';
 
 const arr: number[] = [1, 2, 3, 4, 5, 6, 7];
 
@@ -66,8 +68,8 @@ const DestinationDetails = ({
                                 <FontAwesomeIcon icon={faClockFour} size={25} color='#FF6F61'/>
                             </TouchableOpacity>
                             <View className='flex flex-col justify-around'>
-                                <Text className='text-lg font-bold text-primary'>6.8KM</Text>
-                                <Text className='text-lg text-secondary'>Khoảng cách</Text>
+                                <Text className='text-lg font-bold text-primary'>00:00 - 23:59</Text>
+                                <Text className='text-lg text-secondary'>Giờ mở cửa</Text>
                             </View>
                         </View>
                         <View className='flex flex-row space-x-3'>
@@ -82,6 +84,7 @@ const DestinationDetails = ({
                             </View>
                         </View>
                     </View>
+
                     <View className='flex flex-col space-y-4'>
                         <Text className='text-primary font-bold text-xl'>Đóng góp</Text>
                         <View className='flex flex-row justify-between'>
@@ -99,6 +102,23 @@ const DestinationDetails = ({
                         <Text className='text-xl font-bold text-primary'>Mô tả về địa điểm</Text>
                         <Text className='text-lg text-secondary'>Bến Thành Market is one of the most famous landmarks in Ho Chi Minh City, Vietnam. It's located in District 1, at the intersection of Lê Lợi, Hùng Vương, Lê Thánh Tôn, and Phan Chu Trinh streets. The market is not just a commercial hub but also a historical symbol of the city's vibrant culture and economy.</Text>
                     </View>
+                    <View className='flex flex-col space-y-4'>
+                        <Text className='text-primary font-bold text-xl'>Địa chỉ</Text>
+                        <Text className='text-secondary text-lg'>Cu Chi Near Benh Dinh Village, Thành phố Hồ Chí Minh</Text>
+                    </View>
+                    <View className='items-center justify-center w-full h-[200px] rounded-xl'>
+                        <MapView
+                            style={styles.map}
+                            region={{
+                                latitude: 10.772706505028399,
+                                longitude: 106.69805298228023,
+                                latitudeDelta: 0.0043,
+                                longitudeDelta: 0.0034
+                            }}
+                        >
+                            <Marker title='Chợ Bến Thành' coordinate={{latitude: 10.772706505028399, longitude: 106.69805298228023}}/>
+                        </MapView>
+                    </View>
                     <Text className='text-primary text-xl font-bold'>Bạn có thể thích</Text>
                     <FlatList
                         horizontal={true}
@@ -111,5 +131,18 @@ const DestinationDetails = ({
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+      ...StyleSheet.absoluteFillObject,
+      height: 200,
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    map: {
+      ...StyleSheet.absoluteFillObject,
+    },
+   });
 
 export default DestinationDetails;
