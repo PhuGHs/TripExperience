@@ -9,6 +9,8 @@ export type RootStackParamList = {
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
     ReviewDestinationScreen: undefined;
+    PlanDetails: { planId: number };
+    UpdatePlan: { plantId: number };
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -19,6 +21,8 @@ export type ReviewScreenScreenProps = NativeStackScreenProps<RootStackParamList,
 export type TabsScreenProps = NativeStackScreenProps<RootStackParamList, 'Tabs'>;
 export type SearchDestinationRatingScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchDestinationRatingScreen'>;
 export type ReviewDestinationScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ReviewDestinationScreen'>;
+export type PlanDetailsScreenProps = NativeStackScreenProps<RootStackParamList, 'PlanDetails'>;
+export type UpdatePlanScreenProps = NativeStackScreenProps<RootStackParamList, 'UpdatePlan'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

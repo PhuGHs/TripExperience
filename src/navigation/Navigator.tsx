@@ -10,6 +10,8 @@ import React from 'react';
 import Tabs from './BottomTab';
 import SearchDestinationRatingScreen from '@screen/SearchDestinationRatingScreen';
 import ReviewDestination from '@screen/ReviewDestination';
+import PlanDetails from '@screen/PlanDetails';
+import UpdatePlanScreen from '@screen/UpdatePlanScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,6 +35,8 @@ const Navigator = () => {
                 <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
                 <Stack.Screen name='SignIn' component={SignInScreen} />
                 <Stack.Screen name='SignUp' component={SignUpScreen} />
+                <Stack.Screen name='PlanDetails' component={PlanDetails} />
+                <Stack.Screen name='UpdatePlan' component={UpdatePlanScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
