@@ -8,20 +8,22 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const arr: number[] = [1,2,3,4,5];
+const arr: number[] = [1, 2, 3, 4, 5];
 
 const DestinationReviewScreen = ({
     route,
     navigation,
-}: DestinationReviewScreenScreenProps & { route: RouteProp<RootStackParamList, 'DestinationReviewScreen'> }) => {
-
+}: DestinationReviewScreenScreenProps & {
+    route: RouteProp<RootStackParamList, 'DestinationReviewScreen'>;
+}) => {
     const renderHeader = () => (
         <View className='flex flex-1 space-y-3'>
             <View className='flex flex-row justify-between items-center'>
                 <View className=''>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => navigation.pop()}
-                        className='p-2 rounded-xl border border-slate-300'>
+                        className='p-2 rounded-xl border border-slate-300'
+                    >
                         <FontAwesomeIcon icon={faAngleLeft} size={30} />
                     </TouchableOpacity>
                 </View>

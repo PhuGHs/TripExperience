@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { ChevronRightIcon } from 'react-native-heroicons/outline';
 
-
-const ArrowButton = ({ icon: Icon, name, press}) => {
+const ArrowButton = ({ icon: Icon, name, press }) => {
     return (
         <TouchableOpacity
             onPress={press}
@@ -12,7 +11,9 @@ const ArrowButton = ({ icon: Icon, name, press}) => {
             <View className='w-[12%] items-start justify-center'>
                 <Icon color='#1e1e1e' size={27} />
             </View>
-            <Text className='w-[60%] items-start justify-center text-primary font-medium text-lg'>{name}</Text>
+            <Text className='w-[60%] items-start justify-center text-primary font-medium text-lg'>
+                {name}
+            </Text>
             <View className='w-[28%] items-end justify-center'>
                 <ChevronRightIcon size={24} color='#1e1e1e' />
             </View>

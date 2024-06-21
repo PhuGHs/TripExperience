@@ -10,9 +10,7 @@ interface IDestination {
 
 const Destination = ({ press }: IDestination) => {
     return (
-        <TouchableOpacity 
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={require('@asset/images/benthanh.jpg')}
                 style={styles.imageBackground}
@@ -23,19 +21,19 @@ const Destination = ({ press }: IDestination) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-2xl'>
-                        Chợ Bến Thành
-                    </Text>
+                    <Text className=' font-bold text-white text-2xl'>Chợ Bến Thành</Text>
                     <Text className='text-white'>Mô tả ngắn về Chợ Bến Thành</Text>
                     <View className='flex flex-row justify-between'>
                         <View>
                             <View className='flex flex-row items-center space-x-2'>
                                 <Text className='font-bold text-base text-orange-400'>4.7</Text>
-                                <FontAwesomeIcon icon={faStar} color='#fb923c' size={25}/>
+                                <FontAwesomeIcon icon={faStar} color='#fb923c' size={25} />
                             </View>
                             <View className='flex flex-row items-center space-x-2'>
-                                <Text className='font-bold text-base text-white'>Ho Chi Minh City</Text>
-                                <FontAwesomeIcon icon={faLocationDot} color='white' size={25}/>
+                                <Text className='font-bold text-base text-white'>
+                                    Ho Chi Minh City
+                                </Text>
+                                <FontAwesomeIcon icon={faLocationDot} color='white' size={25} />
                             </View>
                         </View>
                         <TouchableOpacity className='bg-main px-3 rounded-full items-center justify-center'>
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
     container: {
         width: 300,
         paddingVertical: 8,
-        marginRight: 8
+        marginRight: 8,
     },
     imageBackground: {
         height: 400,

@@ -16,6 +16,7 @@ import EditProfile from '@screen/EditProfile';
 import ChatScreen from '@screen/ChatScreen';
 import MessageScreen from '@screen/MessageScreen';
 import SearchConversation from '@screen/SearchConversation';
+import { useAuth } from '@context/auth-context';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,28 +24,45 @@ const theme: Theme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        background: '#FFFFFF'
-    }
+        background: '#FFFFFF',
+    },
 };
 
 const Navigator = () => {
+    const { token } = useAuth();
     return (
         <NavigationContainer theme={theme}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name='Tabs' component={Tabs} />
-                <Stack.Screen name='SearchDestinationRatingScreen' component={SearchDestinationRatingScreen} />
-                <Stack.Screen name='ReviewDestinationScreen' component={ReviewDestination} />
-                <Stack.Screen name='DestinationReviewScreen' component={DestinationReviewScreen} />
-                <Stack.Screen name='Welcome' component={WelcomeScreen} />
-                <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
-                <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
-                <Stack.Screen name='EditProfileScreen' component={EditProfile} />
-                <Stack.Screen name='ChatScreen' component={ChatScreen} />
-                <Stack.Screen name='MessageScreen' component={MessageScreen} />
-                <Stack.Screen name='SearchConversation' component={SearchConversation} />
-                <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
-                <Stack.Screen name='SignIn' component={SignInScreen} />
-                <Stack.Screen name='SignUp' component={SignUpScreen} />
+                {token === null ? (
+                    <>
+                        <Stack.Screen name='Welcome' component={WelcomeScreen} />
+                        <Stack.Screen name='SignIn' component={SignInScreen} />
+                        <Stack.Screen name='SignUp' component={SignUpScreen} />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen name='Tabs' component={Tabs} />
+                        <Stack.Screen
+                            name='SearchDestinationRatingScreen'
+                            component={SearchDestinationRatingScreen}
+                        />
+                        <Stack.Screen
+                            name='ReviewDestinationScreen'
+                            component={ReviewDestination}
+                        />
+                        <Stack.Screen
+                            name='DestinationReviewScreen'
+                            component={DestinationReviewScreen}
+                        />
+                        <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
+                        <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+                        <Stack.Screen name='EditProfileScreen' component={EditProfile} />
+                        <Stack.Screen name='ChatScreen' component={ChatScreen} />
+                        <Stack.Screen name='MessageScreen' component={MessageScreen} />
+                        <Stack.Screen name='SearchConversation' component={SearchConversation} />
+                        <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
+                    </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );

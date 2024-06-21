@@ -6,13 +6,19 @@ import React from 'react';
 import { TouchableOpacity, View, Text, Image, TextInput } from 'react-native';
 import { CameraIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {ImageLibraryOptions, ImagePickerResponse, launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {
+    ImageLibraryOptions,
+    ImagePickerResponse,
+    launchCamera,
+    launchImageLibrary,
+} from 'react-native-image-picker';
 
 const EditProfile = ({
     route,
     navigation,
-}: EditProfileScreenScreenProps & { route: RouteProp<RootStackParamList, 'EditProfileScreen'> }) => {
-
+}: EditProfileScreenScreenProps & {
+    route: RouteProp<RootStackParamList, 'EditProfileScreen'>;
+}) => {
     const pickImages = async () => {
         const options: ImageLibraryOptions = {
             mediaType: 'photo',
@@ -27,9 +33,10 @@ const EditProfile = ({
         <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row justify-between items-center'>
                 <View className=''>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => navigation.pop()}
-                        className='p-2 rounded-xl border border-slate-300'>
+                        className='p-2 rounded-xl border border-slate-300'
+                    >
                         <FontAwesomeIcon icon={faAngleLeft} size={30} />
                     </TouchableOpacity>
                 </View>
@@ -37,16 +44,17 @@ const EditProfile = ({
                 <View className='w-[10%]'></View>
             </View>
             <View className='space-y-6 my-4'>
-                <TouchableOpacity 
-                    onPress={pickImages}
-                    className='items-center'>
-                    <View style={{width: 100, height: 100, borderRadius: 100/2}}>
+                <TouchableOpacity onPress={pickImages} className='items-center'>
+                    <View style={{ width: 100, height: 100, borderRadius: 100 / 2 }}>
                         <Image
                             source={require('@asset/images/benthanh.jpg')}
-                            style={{width: 100, height: 100, borderRadius: 100/2}}
+                            style={{ width: 100, height: 100, borderRadius: 100 / 2 }}
                         />
-                        <View className='absolute bottom-0 right-0 w-[40px] h-[40px] bg-white rounded-full items-center justify-center' style={{elevation: 5}}>
-                            <CameraIcon color='#1e1e1e' size={24}/>
+                        <View
+                            className='absolute bottom-0 right-0 w-[40px] h-[40px] bg-white rounded-full items-center justify-center'
+                            style={{ elevation: 5 }}
+                        >
+                            <CameraIcon color='#1e1e1e' size={24} />
                         </View>
                     </View>
                 </TouchableOpacity>

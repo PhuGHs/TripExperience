@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { getData, storeData } from './asyncStorage';
 
-export const BASE_ENDPOINT = 'https://localhost:7182/api';
+export const BASE_ENDPOINT = 'http://10.0.2.2:5000/api';
 const URL_LOGIN = '/Auth/login';
 
 class Http {
@@ -44,10 +44,10 @@ class Http {
                     const { url } = response.config;
                     if (url === URL_LOGIN) {
                         const { data } = response.data;
-                        const { accessToken, account } = data;
+                        const { accessToken, user } = data;
                         this.accessToken = 'Bearer ' + accessToken;
                         this.instance.defaults.headers.common['Authorization'] = this.accessToken;
-                        storeData({ value: account, item: 'user' });
+                        storeData({ value: user, item: 'user' });
                         storeData({ value: this.accessToken, item: 'token' });
                     }
                     return response;

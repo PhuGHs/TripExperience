@@ -36,7 +36,7 @@ const Tabs = () => {
                 tabBarShowLabel: false,
                 tabBarStyle: { paddingBottom: insets.bottom, ...styles.tabBar },
                 tabBarLabelStyle: styles.tabBarLabel,
-                tabBarActiveTintColor: '#1e1e1e'
+                tabBarActiveTintColor: '#1e1e1e',
             }}
         >
             <Tab.Screen
@@ -44,7 +44,7 @@ const Tabs = () => {
                 component={HomeScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={HomeIcon} label="Khám phá" focused={focused} />
+                        <CustomTabBarIcon icon={HomeIcon} label='Khám phá' focused={focused} />
                     ),
                 }}
             />
@@ -53,7 +53,11 @@ const Tabs = () => {
                 component={SearchScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={MagnifyingGlassIcon} label="Tìm kiếm" focused={focused} />
+                        <CustomTabBarIcon
+                            icon={MagnifyingGlassIcon}
+                            label='Tìm kiếm'
+                            focused={focused}
+                        />
                     ),
                 }}
             />
@@ -62,7 +66,7 @@ const Tabs = () => {
                 component={PlanScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={HeartIcon} label="Kế hoạch" focused={focused} />
+                        <CustomTabBarIcon icon={HeartIcon} label='Kế hoạch' focused={focused} />
                     ),
                 }}
             />
@@ -71,7 +75,7 @@ const Tabs = () => {
                 component={RatingScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={PencilIcon} label="Đánh giá" focused={focused} />
+                        <CustomTabBarIcon icon={PencilIcon} label='Đánh giá' focused={focused} />
                     ),
                 }}
             />
@@ -80,7 +84,11 @@ const Tabs = () => {
                 component={AccountScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <CustomTabBarIcon icon={UserCircleIcon} label="Tài khoản" focused={focused} />
+                        <CustomTabBarIcon
+                            icon={UserCircleIcon}
+                            label='Tài khoản'
+                            focused={focused}
+                        />
                     ),
                 }}
             />

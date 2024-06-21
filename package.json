@@ -14,6 +14,7 @@
     "prettier:fix": "prettier --write src/**/*.{ts,tsx,json}"
   },
   "dependencies": {
+    "@baronha/ting": "^1.1.0",
     "@devvie/bottom-sheet": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
@@ -25,7 +26,6 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "axios": "^1.7.2",
-    "burnt": "^0.12.2",
     "config": "^3.3.11",
     "expo-font": "~12.0.7",
     "expo-splash-screen": "^0.27.5",
@@ -48,6 +48,7 @@
     "react-native-star-rating-widget": "^1.8.0",
     "react-native-svg": "^15.3.0",
     "react-native-ui-datepicker": "^2.0.3",
+    "reactotron-react-native": "^5.1.7",
     "typescript-transform-paths": "^3.4.7"
   },
   "devDependencies": {

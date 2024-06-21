@@ -11,7 +11,7 @@ const Review = () => {
                 <View className='w-[18%] items-center'>
                     <Image
                         source={require('@asset/images/benthanh.jpg')}
-                        style={{width: 65, height: 65, borderRadius: 65/2}}
+                        style={{ width: 65, height: 65, borderRadius: 65 / 2 }}
                     />
                 </View>
                 <View className='flex flex-col justify-around max-w-[47%]'>
@@ -30,20 +30,25 @@ const Review = () => {
                 </View>
             </View>
             <View className='my-2'>
-                <Text className='text-[#7F7F81] text-base'>I have visited to the resort with my family. To be honest, it’s such a good place for family to pay a visit to, this place provides a lot facilities such as swimming pool, dining and grilling area, ... In addition, when you guys come here, you will be experienced one of the best atmosphere to relax.</Text>
+                <Text className='text-[#7F7F81] text-base'>
+                    I have visited to the resort with my family. To be honest, it’s such a good
+                    place for family to pay a visit to, this place provides a lot facilities such as
+                    swimming pool, dining and grilling area, ... In addition, when you guys come
+                    here, you will be experienced one of the best atmosphere to relax.
+                </Text>
             </View>
             <View className='flex flex-row space-x-2'>
                 <View className='w-[49%]'>
                     <Image
                         source={require('@asset/images/benthanh.jpg')}
-                        style={{width: '100%', height: 150}}
+                        style={{ width: '100%', height: 150 }}
                         className='rounded-xl'
                     />
                 </View>
                 <View className='w-[49%]'>
                     <Image
                         source={require('@asset/images/benthanh.jpg')}
-                        style={{width: '100%', height: 150}}
+                        style={{ width: '100%', height: 150 }}
                         className='rounded-xl'
                     />
                     <LinearGradient
