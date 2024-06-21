@@ -15,7 +15,7 @@ const SearchDestinationRatingScreen = ({ navigation }: SearchDestinationRatingSc
     };
 
     return (
-        <SafeAreaView className='flex flex-1 mx-4 space-y-4'>
+        <SafeAreaView className='flex flex-1 mx-4 space-y-4 mt-4'>
             <View className='items-start'>
                 <TouchableOpacity 
                     onPress={() => navigation.pop()}

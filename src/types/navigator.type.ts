@@ -11,6 +11,14 @@ export type RootStackParamList = {
     ReviewDestinationScreen: undefined;
     PlanDetails: { planId: number };
     UpdatePlan: { plantId: number };
+    DestinationReviewScreen: { provinceId: number }
+    ProfileScreen: { userId: number }
+    EditProfileScreen: undefined;
+    ChatScreen: undefined;
+    MessageScreen: { conversationId: number };
+    SearchConversation: undefined;
+    GroupDetailScreen: { groupId: number };
+    PostDetailScreen: { postId: number };
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -23,6 +31,15 @@ export type SearchDestinationRatingScreenScreenProps = NativeStackScreenProps<Ro
 export type ReviewDestinationScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ReviewDestinationScreen'>;
 export type PlanDetailsScreenProps = NativeStackScreenProps<RootStackParamList, 'PlanDetails'>;
 export type UpdatePlanScreenProps = NativeStackScreenProps<RootStackParamList, 'UpdatePlan'>;
+export type DestinationReviewScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'DestinationReviewScreen'>;
+export type ProfileScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ProfileScreen'>;
+export type EditProfileScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'EditProfileScreen'>;
+export type ChatScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ChatScreen'>;
+export type MessageScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'MessageScreen'>;
+export type SearchConversationScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchConversation'>;
+export type GroupDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'GroupDetailScreen'>;
+export type PostDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'PostDetailScreen'>;
+
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

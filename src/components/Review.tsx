@@ -8,21 +8,22 @@ const Review = () => {
     return (
         <View className='w-full my-4'>
             <View className='flex flex-row space-x-3'>
-                <View className='w-[15%] items-center'>
+                <View className='w-[18%] items-center'>
                     <Image
                         source={require('@asset/images/benthanh.jpg')}
-                        style={{width: 60, height: 60, borderRadius: 60/2}}
+                        style={{width: 65, height: 65, borderRadius: 65/2}}
                     />
                 </View>
-                <View className='flex flex-col justify-around w-[50%]'>
+                <View className='flex flex-col justify-around max-w-[47%]'>
                     <View className='flex flex-row space-x-2 items-center'>
-                        <Text className='text-primary font-bold text-lg'>Joan Perkins</Text>
+                        <Text className='text-primary font-medium text-lg'>Joan Perkins</Text>
                         <View className='flex flex-row items-center'>
                             <Text className='text-lg font-bold text-primary'>4</Text>
                             <FontAwesomeIcon icon={faStar} color='#FAA300' size={20} />
                         </View>
                     </View>
-                    <Text className='text-primary'>đã đến vào 10 ngày trước</Text>
+                    <Text className='text-primary'>Biên Hoà, Việt Nam</Text>
+                    <Text className='text-primary font-light'>đã đến vào 10 ngày trước</Text>
                 </View>
                 <View className='w-[35%] items-center justify-center'>
                     <Text className='text-primary'>1 ngày trước</Text>
@@ -50,7 +51,7 @@ const Review = () => {
                         style={styles.gradient}
                     />
                     <View className='absolute w-full h-full items-center justify-center'>
-                        <Text className='text-white font-bold text-base'>See more</Text>
+                        <Text className='text-white font-bold text-base'>Xem thêm</Text>
                     </View>
                 </View>
             </View>

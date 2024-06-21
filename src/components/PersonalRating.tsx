@@ -22,7 +22,7 @@ const PersonalRating = ({ press }: IPersonalRating) => {
                     />
                 </View>
                 <View className='flex flex-col justify-evenly'>
-                    <Text className='text-primary font-bold text-lg'>Chợ Bến Thành</Text>
+                    <Text className='text-primary font-medium text-lg'>Chợ Bến Thành</Text>
                     <Text className='text-primary text-base'>Tp. Hồ Chí Minh</Text>
                 </View>
             </View>

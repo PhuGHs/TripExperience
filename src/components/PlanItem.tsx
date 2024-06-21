@@ -26,7 +26,7 @@ const PlanItem = ({ press, item }: IPlanItem) => {
                 </View>
             </View>
             <Text className='font-bold mb-3'>Thêm nhận xét</Text>
-            <View className='border-b border-[#EEEEEE] w-full' />
+            <View className='border-b border-[#E3E1D9] w-full' />
         </View>
     )
 }
