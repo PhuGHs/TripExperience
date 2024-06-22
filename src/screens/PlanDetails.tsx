@@ -79,7 +79,7 @@ const PlanDetails = ({
                     </View>
 
                     <View className="mt-5">
-                        {arrEmpty.length > 0 ? arr.map((item, index) => (
+                        {arr.length > 0 ? arr.map((item, index) => (
                             <PlanItem item={item} key={index} press={() => { }} />
                         )) :
                             <View className="flex items-center px-3">

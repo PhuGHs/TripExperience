@@ -19,6 +19,7 @@ export type RootStackParamList = {
     SearchConversation: undefined;
     GroupDetailScreen: { groupId: number };
     PostDetailScreen: { postId: number };
+    NewPostScreen: undefined;
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -39,7 +40,7 @@ export type MessageScreenScreenProps = NativeStackScreenProps<RootStackParamList
 export type SearchConversationScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchConversation'>;
 export type GroupDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'GroupDetailScreen'>;
 export type PostDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'PostDetailScreen'>;
-
+export type NewPostScreenProps = NativeStackScreenProps<RootStackParamList, 'NewPostScreen'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

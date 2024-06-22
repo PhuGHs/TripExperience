@@ -20,6 +20,7 @@ import MessageScreen from '@screen/MessageScreen';
 import SearchConversation from '@screen/SearchConversation';
 import GroupDetailScreen from '@screen/GroupDetailScreen';
 import PostDetailScreen from '@screen/PostDetailScreen';
+import NewPostScreen from '@screen/NewPostScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -53,6 +54,7 @@ const Navigator = () => {
                 <Stack.Screen name='UpdatePlan' component={UpdatePlanScreen} />
                 <Stack.Screen name='GroupDetailScreen' component={GroupDetailScreen} />
                 <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+                <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

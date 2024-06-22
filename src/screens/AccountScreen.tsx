@@ -12,17 +12,17 @@ const AccountScreen = ({ navigation }: TabsScreenProps) => {
                 <Text className='text-primary text-3xl font-bold'>Tài khoản</Text>
                 <Image
                     source={require('@asset/images/benthanh.jpg')}
-                    style={{width: 50, height: 50, borderRadius: 50/2}}
+                    style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
                 />
             </View>
             <View className='flex flex-col items-start'>
-                <ArrowButton name='Hồ sơ' icon={UserCircleIcon} press={() => navigation.push('ProfileScreen')}/>
+                <ArrowButton name='Hồ sơ' icon={UserCircleIcon} press={() => navigation.push('ProfileScreen')} />
                 <View className='h-[2px] w-full bg-slate-300'></View>
-                <ArrowButton name='Tin nhắn' icon={EnvelopeIcon} press={() => navigation.push('ChatScreen')}/>
+                <ArrowButton name='Tin nhắn' icon={EnvelopeIcon} press={() => navigation.push('ChatScreen')} />
                 <View className='h-[2px] w-full bg-slate-300'></View>
-                <ArrowButton name='Cài đặt' icon={Cog6ToothIcon} press={() => {}}/>
+                <ArrowButton name='Cài đặt' icon={Cog6ToothIcon} press={() => { }} />
                 <View className='h-[2px] w-full bg-slate-300'></View>
-                <ArrowButton name='Hỗ trợ' icon={QuestionMarkCircleIcon} press={() => {}}/>
+                <ArrowButton name='Hỗ trợ' icon={QuestionMarkCircleIcon} press={() => { }} />
                 <View className='h-[2px] w-full bg-slate-300'></View>
             </View>
             <TouchableOpacity className='my-8 rounded-full w-full border-[#1e1e1e] border-[1.5px] py-3'>
