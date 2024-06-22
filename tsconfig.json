@@ -51,6 +51,18 @@
       "@asset/*": [
         "src/assets/*"
       ],
+      "@context/*": [
+        "src/context/*"
+      ],
+      "@static/*": [
+        "src/static/*"
+      ],
+      "@helper/*": [
+        "src/helpers/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
       "@root/*": [
         "src/*"
       ]

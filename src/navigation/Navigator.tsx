@@ -21,6 +21,7 @@ import SearchConversation from '@screen/SearchConversation';
 import GroupDetailScreen from '@screen/GroupDetailScreen';
 import PostDetailScreen from '@screen/PostDetailScreen';
 import NewPostScreen from '@screen/NewPostScreen';
+import { useAuth } from '@context/auth-context';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,33 +29,50 @@ const theme: Theme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
-        background: '#FFFFFF'
-    }
+        background: '#FFFFFF',
+    },
 };
 
 const Navigator = () => {
+    const { token } = useAuth();
     return (
         <NavigationContainer theme={theme}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name='Tabs' component={Tabs} />
-                <Stack.Screen name='SearchDestinationRatingScreen' component={SearchDestinationRatingScreen} />
-                <Stack.Screen name='ReviewDestinationScreen' component={ReviewDestination} />
-                <Stack.Screen name='DestinationReviewScreen' component={DestinationReviewScreen} />
-                <Stack.Screen name='Welcome' component={WelcomeScreen} />
-                <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
-                <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
-                <Stack.Screen name='EditProfileScreen' component={EditProfile} />
-                <Stack.Screen name='ChatScreen' component={ChatScreen} />
-                <Stack.Screen name='MessageScreen' component={MessageScreen} />
-                <Stack.Screen name='SearchConversation' component={SearchConversation} />
-                <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
-                <Stack.Screen name='SignIn' component={SignInScreen} />
-                <Stack.Screen name='SignUp' component={SignUpScreen} />
-                <Stack.Screen name='PlanDetails' component={PlanDetails} />
-                <Stack.Screen name='UpdatePlan' component={UpdatePlanScreen} />
-                <Stack.Screen name='GroupDetailScreen' component={GroupDetailScreen} />
-                <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
-                <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
+                {token === null ? (
+                    <>
+                        <Stack.Screen name='Welcome' component={WelcomeScreen} />
+                        <Stack.Screen name='SignIn' component={SignInScreen} />
+                        <Stack.Screen name='SignUp' component={SignUpScreen} />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen name='Tabs' component={Tabs} />
+                        <Stack.Screen
+                            name='SearchDestinationRatingScreen'
+                            component={SearchDestinationRatingScreen}
+                        />
+                        <Stack.Screen
+                            name='ReviewDestinationScreen'
+                            component={ReviewDestination}
+                        />
+                        <Stack.Screen
+                            name='DestinationReviewScreen'
+                            component={DestinationReviewScreen}
+                        />
+                        <Stack.Screen name='DestinationDetails' component={DestinationDetails} />
+                        <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+                        <Stack.Screen name='EditProfileScreen' component={EditProfile} />
+                        <Stack.Screen name='ChatScreen' component={ChatScreen} />
+                        <Stack.Screen name='MessageScreen' component={MessageScreen} />
+                        <Stack.Screen name='SearchConversation' component={SearchConversation} />
+                        <Stack.Screen name='ReviewScreen' component={ReviewScreen} />
+                        <Stack.Screen name='PlanDetails' component={PlanDetails} />
+                        <Stack.Screen name='UpdatePlan' component={UpdatePlanScreen} />
+                        <Stack.Screen name='GroupDetailScreen' component={GroupDetailScreen} />
+                        <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
+                        <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
+                    </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );

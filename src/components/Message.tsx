@@ -24,21 +24,29 @@ const Message = ({ is_mine }: IMessage) => {
                 </View>
                 <View className={`flex flex-col space-y-2 ${is_mine ? 'mr-3' : ''}`}>
                     <Text
-                        className={`text-gray-700 text-primary font-medium text-base ${is_mine ? 'text-right mr-1' : 'text-left ml-1'}`}
+                        className={`text-gray-700 text-primary font-medium text-base ${
+                            is_mine ? 'text-right mr-1' : 'text-left ml-1'
+                        }`}
                     >
                         Jackson
                     </Text>
                     <TouchableOpacity
-                        className={`px-2 py-3 rounded-xl ${is_mine ? 'bg-[#1D84C6]' : 'bg-neutral-300'}`}
+                        className={`px-2 py-3 rounded-xl ${
+                            is_mine ? 'bg-[#1D84C6]' : 'bg-neutral-300'
+                        }`}
                         onPress={() => setVisible((prev) => !prev)}
                     >
                         <Text
-                            className={`font-nunitoSemi text-base ${is_mine ? 'text-white' : 'text-slate-700'}`}
+                            className={`font-nunitoSemi text-base ${
+                                is_mine ? 'text-white' : 'text-slate-700'
+                            }`}
                         >
                             kkkkkkkkkkkkkkkkkkkkkkkksd ssssssssssssssssssssssssss
                         </Text>
                     </TouchableOpacity>
-                    {visible && <Text className={`${is_mine ? 'text-right' : 'text-left' }`}>5:04 PM</Text>}
+                    {visible && (
+                        <Text className={`${is_mine ? 'text-right' : 'text-left'}`}>5:04 PM</Text>
+                    )}
                 </View>
             </View>
         </View>

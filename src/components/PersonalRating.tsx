@@ -10,14 +10,12 @@ interface IPersonalRating {
 
 const PersonalRating = ({ press }: IPersonalRating) => {
     return (
-        <TouchableOpacity 
-            onPress={press}
-            className='w-full flex-col space-y-2 my-2'>
+        <TouchableOpacity onPress={press} className='w-full flex-col space-y-2 my-2'>
             <View className='flex flex-row space-x-3'>
                 <View className='items-center justify-center'>
                     <Image
                         source={require('@asset/images/benthanh.jpg')}
-                        style={{width: 80, height: 80}}
+                        style={{ width: 80, height: 80 }}
                         className='rounded-xl'
                     />
                 </View>

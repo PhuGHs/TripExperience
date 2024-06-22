@@ -5,7 +5,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const arr: number[] = [1,2,3,4,5,6];
+const arr: number[] = [1, 2, 3, 4, 5, 6];
 
 const RatingScreen = ({ navigation }: TabsScreenProps) => {
     const renderHeader = () => (
@@ -15,7 +15,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                     <View className='w-[15%]'>
                         <Image
                             source={require('@asset/images/benthanh.jpg')}
-                            style={{width: 60, height: 60, borderRadius: 60/2}}
+                            style={{ width: 60, height: 60, borderRadius: 60 / 2 }}
                         />
                     </View>
                     <View className='w-[80%] flex flex-col justify-around'>
@@ -24,9 +24,10 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                     </View>
                 </View>
                 <View className='flex flex-row justify-between'>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => navigation.push('SearchDestinationRatingScreen')}
-                        className='w-[48%] items-center justify-center rounded-full border-[#1e1e1e] border-2 py-4'>
+                        className='w-[48%] items-center justify-center rounded-full border-[#1e1e1e] border-2 py-4'
+                    >
                         <Text className='text-primary text-base font-bold'>Viết đánh giá</Text>
                     </TouchableOpacity>
                     <TouchableOpacity className='w-[48%] items-center justify-center rounded-full border-[#1e1e1e] border-2 py-4'>
@@ -50,7 +51,9 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
                 ListHeaderComponent={renderHeader}
-                renderItem={({ item, index }) => <Province press={() => navigation.push('DestinationReviewScreen')} />}
+                renderItem={({ item, index }) => (
+                    <Province press={() => navigation.push('DestinationReviewScreen')} />
+                )}
                 contentContainerStyle={{ paddingBottom: 20 }}
             />
         </SafeAreaView>

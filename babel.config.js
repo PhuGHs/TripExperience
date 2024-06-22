@@ -13,6 +13,9 @@ module.exports = {
             '@screen': './src/screens',
             '@hook': './src/hooks',
             '@asset': './src/assets',
+            '@context': './src/context',
+            '@helper': './src/helpers',
+            '@api': './src/api',
             '@root': './src'
           }
         }

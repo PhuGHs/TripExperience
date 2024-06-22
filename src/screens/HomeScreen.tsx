@@ -15,8 +15,10 @@ const HomeScreen = ({ navigation }: TabsScreenProps) => {
                     <View className='flex flex-col justify-around'>
                         <Text className='font-bold text-white text-3xl'>Khám phá</Text>
                         <View className='flex flex-row items-center space-x-2'>
-                            <Text className='text-white font-medium text-lg'>Thành phố Hồ Chí Minh</Text>
-                            <FontAwesomeIcon icon={faLocationDot} size={22} color='white'/>
+                            <Text className='text-white font-medium text-lg'>
+                                Thành phố Hồ Chí Minh
+                            </Text>
+                            <FontAwesomeIcon icon={faLocationDot} size={22} color='white' />
                         </View>
                     </View>
                     <View>
@@ -24,18 +26,24 @@ const HomeScreen = ({ navigation }: TabsScreenProps) => {
                             <View className='rounded-full border-[2px] border-white'>
                                 <Image
                                     source={require('@asset/images/login.png')}
-                                    style={{width: 50, height: 50, borderRadius: 50/2}}
+                                    style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
                                 />
                             </View>
                         </View>
                     </View>
                 </View>
                 <View className='m-3'>
-                    <Text className='font-bold text-primary text-xl mb-2'>Các địa điểm ưa thích</Text>
-                    <Destination press={() => navigation.push('DestinationDetails', { destinationId: 1 })}/>
+                    <Text className='font-bold text-primary text-xl mb-2'>
+                        Các địa điểm ưa thích
+                    </Text>
+                    <Destination
+                        press={() => navigation.push('DestinationDetails', { destinationId: 1 })}
+                    />
                 </View>
                 <View className='m-3'>
-                    <Text className='font-bold text-primary text-xl mb-2'>Các bài chia sẻ kinh nghiệm</Text>
+                    <Text className='font-bold text-primary text-xl mb-2'>
+                        Các bài chia sẻ kinh nghiệm
+                    </Text>
                     <Post />
                 </View>
             </ScrollView>

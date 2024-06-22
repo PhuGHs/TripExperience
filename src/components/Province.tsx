@@ -10,9 +10,7 @@ interface IDestination {
 
 const Province = ({ press }: IDestination) => {
     return (
-        <TouchableOpacity 
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={require('@asset/images/benthanh.jpg')}
                 style={styles.imageBackground}
@@ -23,9 +21,7 @@ const Province = ({ press }: IDestination) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-2xl'>
-                        Hà Nội
-                    </Text>
+                    <Text className=' font-bold text-white text-2xl'>Hà Nội</Text>
                     <Text className='text-white'>4 đánh giá</Text>
                 </View>
             </ImageBackground>
@@ -37,7 +33,7 @@ const styles = StyleSheet.create({
     container: {
         width: '48%',
         paddingVertical: 8,
-        marginRight: 8
+        marginRight: 8,
     },
     imageBackground: {
         height: 300,

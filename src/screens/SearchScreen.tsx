@@ -17,7 +17,7 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
     };
 
     const handleSwitchChange = () => {
-        setLocationSearch(prev => !prev);
+        setLocationSearch((prev) => !prev);
     };
 
     return (
