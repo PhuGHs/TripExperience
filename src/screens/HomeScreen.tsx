@@ -3,11 +3,71 @@ import Post from '@component/Post';
 import { faGlobeAsia, faLocationDot, faLocationPin } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { TabsScreenProps } from '@type/navigator.type';
-import React from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, Image, Platform, PermissionsAndroid } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 const HomeScreen = ({ navigation }: TabsScreenProps) => {
+    const [province, setProvince] = useState<string>(null);
+
+    useEffect(() => {
+        const requestLocationPermission = async () => {
+          if (Platform.OS === 'android') {
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+              {
+                title: 'Location Permission',
+                message: 'This app needs access to your location.',
+                buttonNeutral: 'Ask Me Later',
+                buttonNegative: 'Cancel',
+                buttonPositive: 'OK',
+              },
+            );
+            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+              console.log('Location permission denied');
+              return;
+            }
+          }
+          getCurrentLocation();
+        };
+      
+          requestLocationPermission();
+        }, []);
+
+        const getCurrentLocation = () => {
+            Geolocation.getCurrentPosition(
+              position => {
+                const { latitude, longitude } = position.coords;
+                getProvinceFromCoords(latitude, longitude);
+              },
+              error => {
+                console.log(error.code, error.message);
+              },
+              { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+            );
+          };
+  
+          const getProvinceFromCoords = async (latitude, longitude) => {
+              const apiKey = 'AIzaSyA9wtTmO2rJDpLfM8FRmHN-LrUdOKqOb_Y';
+              const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+        
+              try {
+                const response = await axios.get(url);
+                const addressComponents = response.data.results[0].address_components;
+                const provinceComponent = addressComponents.find(component =>
+                  component.types.includes('administrative_area_level_1'),
+                );
+                if (provinceComponent) {
+                  setProvince(provinceComponent.long_name);
+                } else {
+                  console.log('Province not found');
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            };
+
     return (
         <View className='flex flex-1 h-full w-full'>
             <ScrollView className='h-full'>
@@ -16,7 +76,7 @@ const HomeScreen = ({ navigation }: TabsScreenProps) => {
                         <Text className='font-bold text-white text-3xl'>Khám phá</Text>
                         <View className='flex flex-row items-center space-x-2'>
                             <Text className='text-white font-medium text-lg'>
-                                Thành phố Hồ Chí Minh
+                                {province ? province : ''}
                             </Text>
                             <FontAwesomeIcon icon={faLocationDot} size={22} color='white' />
                         </View>

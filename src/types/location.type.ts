@@ -1,3 +1,5 @@
+import { TLocationMedia } from './media.type';
+
 export type TLocation = {
     locationId: number;
     locationName: string;
@@ -6,4 +8,5 @@ export type TLocation = {
     locationLongtitude: number;
     locationLatitude: number;
     locationRateAverage: number;
+    locationMedias: TLocationMedia[]
 };

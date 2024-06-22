@@ -4,6 +4,7 @@ import {
     ActivityIndicator,
     Image,
     Keyboard,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
@@ -95,7 +96,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
     });
     return (
         <>
-            <SafeAreaView className='flex-1 mx-4 space-y-4'>
+            <ScrollView className='flex-1 mx-4 space-y-4'>
                 <View className='flex items-start'>
                     <View className='jusitfy-center items-center'>
                         <TouchableOpacity
@@ -163,7 +164,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
                         <Text className='text-[#FF6F61] font-bold text-base'>Đăng ký</Text>
                     </TouchableOpacity>
                 </View>
-            </SafeAreaView>
+            </ScrollView>
             {!executed && (
                 <View style={styles.overlay}>
                     <ActivityIndicator size='large' color='#0000ff' />

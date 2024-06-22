@@ -25,3 +25,10 @@ export type TFeedbackMedia = {
     feedbackId: number;
     feedback: TFeedback;
 };
+
+export type TLocationMedia = {
+    locationMediaId: number,
+    locationMediaOrder: number,
+    locationMediaUrl: string,
+    locationId: number,
+};
