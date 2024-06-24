@@ -1,18 +1,19 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { TRatingStatistic } from './location.type';
 
 export type RootStackParamList = {
     Welcome: undefined;
     SignIn: undefined;
     SignUp: undefined;
     DestinationDetails: { destinationId: number };
-    ReviewScreen: { destinationId: number };
+    ReviewScreen: { destinationId: number, ratingStatistic: TRatingStatistic };
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
     ReviewDestinationScreen: undefined;
     PlanDetails: { planId: number };
     UpdatePlan: { plantId: number };
-    DestinationReviewScreen: { provinceId: number }
-    ProfileScreen: { userId: number }
+    DestinationReviewScreen: { provinceId: number };
+    ProfileScreen: { userId: number };
     EditProfileScreen: undefined;
     ChatScreen: undefined;
     MessageScreen: { conversationId: number };
@@ -52,7 +53,10 @@ export type EditProfileScreenScreenProps = NativeStackScreenProps<
 >;
 export type ChatScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ChatScreen'>;
 export type MessageScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'MessageScreen'>;
-export type GroupDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'GroupDetailScreen'>;
+export type GroupDetailScreenProps = NativeStackScreenProps<
+    RootStackParamList,
+    'GroupDetailScreen'
+>;
 export type PostDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'PostDetailScreen'>;
 export type NewPostScreenProps = NativeStackScreenProps<RootStackParamList, 'NewPostScreen'>;
 export type SearchConversationScreenProps = NativeStackScreenProps<

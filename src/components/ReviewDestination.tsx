@@ -9,7 +9,8 @@ interface IReviewDestination {
 
 const ReviewDestination = ({ press }: IReviewDestination) => {
     return (
-        <TouchableOpacity className='bg-white w-[95%] p-3 rounded-2xl space-y-2 mr-5 ml-1 my-3'
+        <TouchableOpacity
+            className='bg-white w-[95%] p-3 rounded-2xl space-y-2 mr-5 ml-1 my-3'
             style={{ elevation: 2 }}
             onPress={press}
         >
@@ -26,7 +27,10 @@ const ReviewDestination = ({ press }: IReviewDestination) => {
                 </View>
             </View>
             <View>
-                <Text className='text-slate-700 text-base mb-1'>This iconic market is renowned for its wide array of goods, from traditional Vietnamese handicrafts and souvenirs to fresh produce and delicious street food.</Text>
+                <Text className='text-slate-700 text-base mb-1'>
+                    This iconic market is renowned for its wide array of goods, from traditional
+                    Vietnamese handicrafts and souvenirs to fresh produce and delicious street food.
+                </Text>
                 <Text className='text-primary font-bold text-base'>tại Chợ Bến Thành</Text>
             </View>
             <View>

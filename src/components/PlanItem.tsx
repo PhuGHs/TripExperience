@@ -7,15 +7,16 @@ interface IPlanItem {
 }
 
 export type PlanningItem = {
-    index: number,
-    destination: string,
-}
+    index: number;
+    destination: string;
+};
 
 const PlanItem = ({ press, item }: IPlanItem) => {
     return (
         <View className='mb-7'>
             <View className='flex-row gap-[10px] mb-3'>
-                <Image source={require('@asset/images/benthanh.jpg')}
+                <Image
+                    source={require('@asset/images/benthanh.jpg')}
                     style={{ height: 100, width: 100, borderRadius: 10 }}
                 />
                 <View className='flex-col flex-1'>
@@ -28,7 +29,7 @@ const PlanItem = ({ press, item }: IPlanItem) => {
             <Text className='font-bold mb-3'>Thêm nhận xét</Text>
             <View className='border-b border-[#E3E1D9] w-full' />
         </View>
-    )
-}
+    );
+};
 
 export default PlanItem;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
@@ -10,9 +10,7 @@ interface IGroup {
 
 const Group = ({ press }: IGroup) => {
     return (
-        <TouchableOpacity
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={require('@asset/images/benthanh.jpg')}
                 style={styles.imageBackground}
@@ -23,20 +21,18 @@ const Group = ({ press }: IGroup) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-xl'>
-                        TP Hồ Chí Minh
-                    </Text>
+                    <Text className=' font-bold text-white text-xl'>TP Hồ Chí Minh</Text>
                 </View>
             </ImageBackground>
         </TouchableOpacity>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         width: 230,
         paddingVertical: 8,
-        marginRight: 10
+        marginRight: 10,
     },
     imageBackground: {
         height: 220,

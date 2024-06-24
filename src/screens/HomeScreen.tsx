@@ -5,68 +5,83 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { TabsScreenProps } from '@type/navigator.type';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Image, Platform, PermissionsAndroid } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import { View, Text, ScrollView, Image, Platform, PermissionsAndroid, FlatList } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
+import { TLocation } from '@type/location.type';
+import { LocationApi } from '@api/location.api';
 
 const HomeScreen = ({ navigation }: TabsScreenProps) => {
     const [province, setProvince] = useState<string>(null);
+    const [locations, setLocations] = useState<TLocation[]>([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data, message } = await LocationApi.getTop10();
+                setLocations(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetch();
+    }, []);
 
     useEffect(() => {
         const requestLocationPermission = async () => {
-          if (Platform.OS === 'android') {
-            const granted = await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-              {
-                title: 'Location Permission',
-                message: 'This app needs access to your location.',
-                buttonNeutral: 'Ask Me Later',
-                buttonNegative: 'Cancel',
-                buttonPositive: 'OK',
-              },
-            );
-            if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-              console.log('Location permission denied');
-              return;
+            if (Platform.OS === 'android') {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                        title: 'Location Permission',
+                        message: 'This app needs access to your location.',
+                        buttonNeutral: 'Ask Me Later',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
+                );
+                if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+                    console.log('Location permission denied');
+                    return;
+                }
             }
-          }
-          getCurrentLocation();
+            getCurrentLocation();
         };
-      
-          requestLocationPermission();
-        }, []);
 
-        const getCurrentLocation = () => {
-            Geolocation.getCurrentPosition(
-              position => {
+        requestLocationPermission();
+    }, []);
+
+    const getCurrentLocation = () => {
+        Geolocation.getCurrentPosition(
+            (position) => {
                 const { latitude, longitude } = position.coords;
                 getProvinceFromCoords(latitude, longitude);
-              },
-              error => {
+            },
+            (error) => {
                 console.log(error.code, error.message);
-              },
-              { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        );
+    };
+
+    const getProvinceFromCoords = async (latitude, longitude) => {
+        const apiKey = 'AIzaSyA9wtTmO2rJDpLfM8FRmHN-LrUdOKqOb_Y';
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+
+        try {
+            const response = await axios.get(url);
+            const addressComponents = response.data.results[0].address_components;
+            const provinceComponent = addressComponents.find((component) =>
+                component.types.includes('administrative_area_level_1')
             );
-          };
-  
-          const getProvinceFromCoords = async (latitude, longitude) => {
-              const apiKey = 'AIzaSyA9wtTmO2rJDpLfM8FRmHN-LrUdOKqOb_Y';
-              const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
-        
-              try {
-                const response = await axios.get(url);
-                const addressComponents = response.data.results[0].address_components;
-                const provinceComponent = addressComponents.find(component =>
-                  component.types.includes('administrative_area_level_1'),
-                );
-                if (provinceComponent) {
-                  setProvince(provinceComponent.long_name);
-                } else {
-                  console.log('Province not found');
-                }
-              } catch (error) {
-                console.log(error);
-              }
-            };
+            if (provinceComponent) {
+                setProvince(provinceComponent.long_name);
+            } else {
+                console.log('Province not found');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <View className='flex flex-1 h-full w-full'>
@@ -96,8 +111,11 @@ const HomeScreen = ({ navigation }: TabsScreenProps) => {
                     <Text className='font-bold text-primary text-xl mb-2'>
                         Các địa điểm ưa thích
                     </Text>
-                    <Destination
-                        press={() => navigation.push('DestinationDetails', { destinationId: 1 })}
+                    <FlatList
+                        horizontal={true}
+                        data={locations}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({item, index}) => <Destination location={item} press={() => navigation.push('DestinationDetails', {destinationId: item.locationId})}/>}
                     />
                 </View>
                 <View className='m-3'>

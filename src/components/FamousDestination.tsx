@@ -10,9 +10,7 @@ interface IFamousDestination {
 
 const FamousDestination = ({ press }: IFamousDestination) => {
     return (
-        <TouchableOpacity
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={require('@asset/images/benthanh.jpg')}
                 style={styles.imageBackground}
@@ -23,9 +21,7 @@ const FamousDestination = ({ press }: IFamousDestination) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-3 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-xl'>
-                        Chợ Bến Thành
-                    </Text>
+                    <Text className=' font-bold text-white text-xl'>Chợ Bến Thành</Text>
                     <View className='flex flex-row justify-between'>
                         <View>
                             <View className='flex flex-row items-center space-x-2'>
@@ -47,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         width: 220,
         paddingVertical: 8,
-        marginRight: 8
+        marginRight: 8,
     },
     imageBackground: {
         height: 250,

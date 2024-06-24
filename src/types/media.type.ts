@@ -27,8 +27,8 @@ export type TFeedbackMedia = {
 };
 
 export type TLocationMedia = {
-    locationMediaId: number,
-    locationMediaOrder: number,
-    locationMediaUrl: string,
-    locationId: number,
+    locationMediaId: number;
+    locationMediaOrder: number;
+    locationMediaUrl: string;
+    locationId: number;
 };

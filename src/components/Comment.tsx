@@ -1,5 +1,5 @@
-import React from "react";
-import { Image, Text, View } from "react-native";
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 const Comment = () => {
     return (
@@ -15,7 +15,7 @@ const Comment = () => {
                 <Text className='text-primary'>Hay quá anh êi</Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 export default Comment;
