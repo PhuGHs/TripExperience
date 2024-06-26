@@ -123,7 +123,7 @@ const DestinationDetails = ({
                             <View className='flex flex-row space-x-3'>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.push('ReviewScreen', { destinationId: 3, ratingStatistic: ratingStatistic})
+                                        navigation.push('ReviewScreen', { destinationId: 3, ratingStatistic: ratingStatistic, ratingAverage: locationRateAverage, locationName: locationName })
                                     }
                                     className='bg-slate-100 p-4 items-center justify-center w-[60px] h-[60px] rounded-xl'
                                 >

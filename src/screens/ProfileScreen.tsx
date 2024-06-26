@@ -4,37 +4,34 @@ import { faAngleLeft, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
 import { ProfileScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React from 'react';
-import { TouchableOpacity, View, Text, ScrollView, Image } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { TouchableOpacity, View, Text, ScrollView, Image, FlatList } from 'react-native';
 import { MapPinIcon, PencilIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal/dist/modal';
 import { useInput } from '@hook/useInput';
+import { TFeedback } from '@type/feedback.type';
+import { FeedbackApi } from '@api/feedback.api';
+import { UserContext } from '@context/user-context';
 
 const ProfileScreen = ({
     route,
     navigation,
 }: ProfileScreenScreenProps & { route: RouteProp<RootStackParamList, 'ProfileScreen'> }) => {
-    const {
-        value: name,
-        handleInputBlur: handleNameBlur,
-        handleInputChange: handleNameChange,
-        setEnteredValue: setNameValue,
-        hasError: nameHasError,
-        didEdit,
-        setDidEdit,
-    } = useInput({ defaultValue: '', validationFn: (value) => value.length > 6 });
+    const { user } = useContext(UserContext);
+    const [feedbacks, setFeedbacks] = useState<TFeedback[]>([]);
 
-    const {
-        value: introduction,
-        handleInputBlur: handleIntroductionBlur,
-        handleInputChange: handleIntroductionChange,
-        setEnteredValue: setIntroductionValue,
-        hasError: introductionHasError,
-        didEdit: introductionDidEdit,
-        setDidEdit: setIntroductionDidEdit,
-    } = useInput({ defaultValue: '', validationFn: (value) => value.length > 6 });
-
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data, message } = await FeedbackApi.getUserFeedbacks(user.id);
+                setFeedbacks(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetch();
+    }, []);
     return (
         <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row justify-between items-center'>
@@ -61,7 +58,7 @@ const ProfileScreen = ({
                             />
                         </View>
                         <View className='flex flex-col justify-evenly'>
-                            <Text className='text-primary text-xl font-bold'>Lê Văn Phú</Text>
+                            <Text className='text-primary text-xl font-bold'>{user.userName}</Text>
                             <Text className='text-base text-primary'>Đã tham gia vào 2024</Text>
                         </View>
                     </View>
@@ -78,7 +75,7 @@ const ProfileScreen = ({
                 </View>
                 <View className='space-y-4 border-b-[1.5px] border-gray-400 pb-6'>
                     <View className='flex flex-row justify-between items-center'>
-                        <Text className='text-primary font-bold text-2xl'>1 đánh giá</Text>
+                        <Text className='text-primary font-bold text-2xl'>{feedbacks.length} đánh giá</Text>
                         <TouchableOpacity>
                             <Text
                                 className='text-primary text-lg font-bold'
@@ -88,7 +85,11 @@ const ProfileScreen = ({
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <Review />
+                    <FlatList
+                        data={feedbacks}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({item, index}) => <Review feedback={item} key={index} />}
+                    />
                     <TouchableOpacity className='w-full py-4 border-2 rounded-full'>
                         <Text className='text-primary text-center text-lg font-bold'>
                             Viết đánh giá

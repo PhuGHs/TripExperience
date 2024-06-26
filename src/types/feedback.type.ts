@@ -14,3 +14,12 @@ export type TFeedback = {
     location: TLocation;
     feedbackMedias: TFeedbackMedia[];
 };
+
+export type TPostFeedback = {
+    feedbackDate: Date,
+    feedbackContent: string,
+    feedbackRate: number,
+    tripType: number,
+    userId: string,
+    locationId: number
+}

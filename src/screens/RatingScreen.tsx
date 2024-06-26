@@ -1,13 +1,30 @@
+import { FeedbackApi } from '@api/feedback.api';
 import PersonalRating from '@component/PersonalRating';
 import Province from '@component/Province';
+import { UserContext } from '@context/user-context';
+import { TFeedback } from '@type/feedback.type';
 import { TabsScreenProps } from '@type/navigator.type';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const arr: number[] = [1, 2, 3, 4, 5, 6];
 
 const RatingScreen = ({ navigation }: TabsScreenProps) => {
+    const { user } = useContext(UserContext);
+    const [feedbacks, setFeedbacks] = useState<TFeedback[]>([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data, message } = await FeedbackApi.getUserFeedbacks(user.id);
+                setFeedbacks(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetch();
+    }, []);
     const renderHeader = () => (
         <View className='space-y-3'>
             <View className='flex flex-col space-y-6'>
@@ -20,7 +37,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                     </View>
                     <View className='w-[80%] flex flex-col justify-around'>
                         <Text className='text-primary font-medium text-lg'>Le Van Phu</Text>
-                        <Text className='text-slate-700 text-base'>4 Đánh giá</Text>
+                        <Text className='text-slate-700 text-base'>{feedbacks.length} Đánh giá</Text>
                     </View>
                 </View>
                 <View className='flex flex-row justify-between'>

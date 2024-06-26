@@ -2,8 +2,8 @@ import PersonalRating from '@component/PersonalRating';
 import { faAngleDown, faCloudUpload, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
-import { ReviewScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import { useRef, useState } from 'react';
+import { ReviewDestinationScreenScreenProps, ReviewScreenScreenProps, RootStackParamList } from '@type/navigator.type';
+import { useContext, useRef, useState } from 'react';
 import { TouchableOpacity, View, Text, TextInput, StyleSheet, ScrollView } from 'react-native';
 import {
     ImageLibraryOptions,
@@ -17,17 +17,26 @@ import DateTimePicker, { DateType } from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import { Helper } from '@root/helpers';
 import moment from 'moment';
+import { FeedbackApi } from '@api/feedback.api';
+import { TPostFeedback } from '@type/feedback.type';
+import { UserContext } from '@context/user-context';
+import { useInput } from '@hook/useInput';
 
 const ReviewDestination = ({
     route,
     navigation,
-}: ReviewScreenScreenProps & {
+}: ReviewDestinationScreenScreenProps & {
     route: RouteProp<RootStackParamList, 'ReviewDestinationScreen'>;
 }) => {
-    const [star, setStar] = useState<number>(0);
+    const { location } = route.params;
+    const { user } = useContext(UserContext);
+
     const sheetRef = useRef<BottomSheetMethods>(null);
+
+    const [star, setStar] = useState<number>(0);
     const [date, setDate] = useState<DateType>(dayjs());
     const [dateString, setDateString] = useState<string>(Helper.formatDDMMYYYY(dayjs().toString()));
+
     const pickImages = async () => {
         const options: ImageLibraryOptions = {
             mediaType: 'photo',
@@ -38,6 +47,41 @@ const ReviewDestination = ({
         const result: ImagePickerResponse = await launchImageLibrary(options);
         console.log(result);
     };
+
+    const {
+        value: thoughts,
+        handleInputChange: handleThoughtsChange,
+        handleInputBlur: handleThoughtsBlur,
+        setEnteredValue: setThoughtsValue,
+        hasError: thoughtsHasError,
+        didEdit,
+        setDidEdit,
+    } = useInput({
+        defaultValue: '',
+        validationFn: (value) => value.trim().split(/\s+/).length > 6,
+    });
+
+    const wordCount = thoughts.trim().split(/\s+/).length;
+    const remainingWords = 100 - wordCount;
+
+    
+
+    const handleGiveFeedback = async () => {
+        const body: TPostFeedback = {
+            locationId: location.locationId,
+            userId: user.id,
+            feedbackRate: star,
+            feedbackDate: new Date(),
+            tripType: 0,
+            feedbackContent: ''
+        };
+        try {
+            FeedbackApi.giveFeedback(body);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
     return (
         <>
             <SafeAreaView className='flex bg-gray-200 flex-1 space-y-3'>
@@ -48,7 +92,7 @@ const ReviewDestination = ({
                 </View>
                 <ScrollView className='w-full' contentContainerStyle={{ alignItems: 'center' }}>
                     <View className='w-[90%] bg-white rounded-xl p-3 space-y-3'>
-                        <PersonalRating press={() => {}} />
+                        <PersonalRating location={location}  press={() => {}} />
                         <Text className='text-primary text-lg font-medium'>
                             Bạn đánh giá trải nghiệm du lịch của mình bao nhiêu ngôi sao?
                         </Text>
@@ -88,14 +132,18 @@ const ReviewDestination = ({
                         <Text className='text-primary font-medium text-lg'>Cảm nghĩ của bạn</Text>
                         <View className='w-full flex-col border-[2px] border-[#C7C7C7] rounded-lg p-2'>
                             <TextInput
+                                value={thoughts}
+                                onChange={handleThoughtsChange}
+                                onBlur={handleThoughtsBlur}
                                 className='w-full mb-8 font-nunitoMedium text-[17px] text-gray-700'
                                 multiline={true}
                                 placeholder='Chia sẻ cảm nghĩ của bạn.'
                             />
                             <Text className='text-[#F3641A] text-right font-nunitoMedium'>
-                                Tối thiểu 100 ký tự
+                                còn lại {remainingWords} từ
                             </Text>
                         </View>
+                        {thoughtsHasError && didEdit && <Text className='text-[#F3641A]'>Bạn cần viết tối thiểu 6 từ</Text>}
                         <TouchableOpacity className='bg-main rounded-xl py-4'>
                             <Text className='text-center font-bold text-white text-lg'>
                                 Thêm đánh giá

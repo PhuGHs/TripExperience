@@ -1,15 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TRatingStatistic } from './location.type';
+import { TLocation, TRatingStatistic } from './location.type';
 
 export type RootStackParamList = {
     Welcome: undefined;
     SignIn: undefined;
     SignUp: undefined;
     DestinationDetails: { destinationId: number };
-    ReviewScreen: { destinationId: number, ratingStatistic: TRatingStatistic };
+    ReviewScreen: { destinationId: number, ratingStatistic: TRatingStatistic, ratingAverage: number, locationName: string };
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
-    ReviewDestinationScreen: undefined;
+    ReviewDestinationScreen: { location: TLocation };
     PlanDetails: { planId: number };
     UpdatePlan: { plantId: number };
     DestinationReviewScreen: { provinceId: number };

@@ -23,3 +23,9 @@ export type TRatingStatistic = {
     4: number,
     5: number
 }
+
+export type TSearch<T> = {
+    result: T,
+    isCity: boolean,
+    isLocation: boolean
+}
