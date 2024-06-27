@@ -13,8 +13,19 @@ export class FeedbackApi {
         return response.data;
     }
 
-    static async giveFeedback(body: TPostFeedback) {
+    static async giveFeedback(body: TPostFeedback): Promise<TSuccessResponse<TFeedback>> {
         const response = await http.post('/Feedback', body);
+        return response.data;
+    }
+
+    static async filterFeedbacks(rating: number, timeFeedbackType: number, tripType: number): Promise<TSuccessResponse<TFeedback[]>> {
+        const response = await http.get('/Feedback/filter', {
+            params: {
+                rating: rating,
+                timeFeedbackType: timeFeedbackType,
+                tripType: tripType
+            }
+        });
         return response.data;
     }
 }

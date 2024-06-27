@@ -16,6 +16,16 @@ import { StarIcon } from 'react-native-heroicons/solid';
 import { dates, formatRating, getTotalFeedback, kinds, stars } from '@root/static/rating.static';
 import { TFeedback } from '@type/feedback.type';
 import { FeedbackApi } from '@api/feedback.api';
+import { LocationApi } from '@api/location.api';
+import { TRatingFilter, TStarFilter } from '@type/rating.type';
+import { ToastOptions, toast } from '@baronha/ting';
+
+const updateSelection = (items, id) => {
+    return items.map(item => ({
+        ...item,
+        selected: item.id === id,
+    }));
+};
 
 const ReviewScreen = ({
     route,
@@ -24,12 +34,44 @@ const ReviewScreen = ({
     const { ratingStatistic, destinationId, ratingAverage, locationName } = route.params;
     const sheetRef = useRef<BottomSheetMethods>(null);
     const [feedbacks, setFeedbacks] = useState<TFeedback[]>([]);
+    const [selectedKinds, setSelectedKinds] = useState<TRatingFilter[]>(kinds);
+    const [selectedDates, setSelectedDates] = useState<TRatingFilter[]>(dates);
+    const [selectedStars, setSelectedStars] = useState<TStarFilter[]>(stars);
+    
+    const handleSelect = (id: number, type: 'kind' | 'date' | 'star') => {
+        if (type === 'kind') {
+            setSelectedKinds(prev => updateSelection(prev, id));
+        } else if (type === 'date') {
+            setSelectedDates(prev => updateSelection(prev, id));
+        } else if (type === 'star') {
+            setSelectedStars(prev => updateSelection(prev, id));
+        }
+    };
 
+    const handleFilter = async () => {
+        const selectedRating = selectedStars.find((item, index) => item.selected === true);
+        const selectedDate = selectedDates.find((item, index) => item.selected === true);
+        const selectedKind = selectedKinds.find((item, index) => item.selected === true);
+        try {
+            const { data, message } = await FeedbackApi.filterFeedbacks(selectedRating.id, selectedDate ? selectedDate.id : 0, selectedKind ? selectedKind.id : 0);
+            setFeedbacks(data);
+            const options: ToastOptions = {
+                title: 'Đã lọc',
+                message: 'Bạn xem ngay nhé!',
+                preset: 'done',
+                backgroundColor: '#e2e8f0',
+            };
+            toast(options);
+            sheetRef.current.close();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         const fetch = async () => {
             try {
-                const { data, message } = await FeedbackApi.getAll();
+                const { data, message } = await LocationApi.getFeedbacks(destinationId);
                 setFeedbacks(data);
             } catch (error) {
                 console.log(error);
@@ -68,6 +110,7 @@ const ReviewScreen = ({
             </View>
             <View className='items-start justify-center border-b-[1px] border-[#7F7F81]'>
                 <Chip
+                    isSelected={false}
                     press={() => {
                         sheetRef.current?.open();
                     }}
@@ -102,9 +145,9 @@ const ReviewScreen = ({
                                     Xếp hạng của khách du lịch
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {stars.map((item, index) => {
+                                    {selectedStars.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'star')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary text-base font-medium'>
                                                         {item.star}
@@ -121,9 +164,9 @@ const ReviewScreen = ({
                                     Ngày đánh giá
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {dates.map((item, index) => {
+                                    {selectedDates.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'date')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary font-medium text-base'>
                                                         {item.name}
@@ -139,27 +182,9 @@ const ReviewScreen = ({
                                     Loại hình chuyến đi
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {kinds.map((item, index) => {
+                                    {selectedKinds.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
-                                                <View className='flex flex-row space-x-1 items-center'>
-                                                    <Text className='text-primary font-medium text-base'>
-                                                        {item.name}
-                                                    </Text>
-                                                </View>
-                                            </Chip>
-                                        );
-                                    })}
-                                </View>
-                            </View>
-                            <View className='flex flex-col space-y-4'>
-                                <Text className='text-primary text-lg font-semibold'>
-                                    Loại hình chuyến đi
-                                </Text>
-                                <View className='flex flex-wrap flex-row w-full'>
-                                    {kinds.map((item, index) => {
-                                        return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'kind')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary font-medium text-base'>
                                                         {item.name}
@@ -181,7 +206,9 @@ const ReviewScreen = ({
                                         Xoá bộ lọc
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity className='bg-main rounded-full px-2 py-3'>
+                                <TouchableOpacity
+                                    onPress={handleFilter}
+                                    className='bg-main rounded-full px-2 py-3'>
                                     <Text className='text-white font-medium text-base'>
                                         Hiển thị đánh giá
                                     </Text>

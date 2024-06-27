@@ -3,4 +3,5 @@ export type TCity = {
     cityName: string,
     cityDescription: string,
     cityUrl: string,
+    feedbackQuantity?: number
 }

@@ -1,7 +1,9 @@
+import { CityApi } from '@api/city.api';
 import { FeedbackApi } from '@api/feedback.api';
 import PersonalRating from '@component/PersonalRating';
 import Province from '@component/Province';
 import { UserContext } from '@context/user-context';
+import { TCity } from '@type/city.type';
 import { TFeedback } from '@type/feedback.type';
 import { TabsScreenProps } from '@type/navigator.type';
 import React, { useContext, useEffect, useState } from 'react';
@@ -13,12 +15,15 @@ const arr: number[] = [1, 2, 3, 4, 5, 6];
 const RatingScreen = ({ navigation }: TabsScreenProps) => {
     const { user } = useContext(UserContext);
     const [feedbacks, setFeedbacks] = useState<TFeedback[]>([]);
+    const [provinces, setProvinces] = useState<TCity[]>([]);
 
     useEffect(() => {
         const fetch = async () => {
             try {
                 const { data, message } = await FeedbackApi.getUserFeedbacks(user.id);
                 setFeedbacks(data);
+                const { data: cities } = await CityApi.getProvinces(user.id);
+                setProvinces(cities);
             } catch (error) {
                 console.log(error);
             }
@@ -36,7 +41,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                         />
                     </View>
                     <View className='w-[80%] flex flex-col justify-around'>
-                        <Text className='text-primary font-medium text-lg'>Le Van Phu</Text>
+                        <Text className='text-primary font-medium text-lg'>{user.userName}</Text>
                         <Text className='text-slate-700 text-base'>{feedbacks.length} Đánh giá</Text>
                     </View>
                 </View>
@@ -64,12 +69,12 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                 <Text className='text-primary text-3xl font-bold'>Đánh giá</Text>
             </View>
             <FlatList
-                data={arr}
+                data={provinces}
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
                 ListHeaderComponent={renderHeader}
                 renderItem={({ item, index }) => (
-                    <Province press={() => navigation.push('DestinationReviewScreen')} />
+                    <Province province={item} key={index} press={() => navigation.push('DestinationReviewScreen', {provinceId: item.cityId})} />
                 )}
                 contentContainerStyle={{ paddingBottom: 20 }}
             />

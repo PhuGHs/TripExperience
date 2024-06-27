@@ -16,7 +16,7 @@ const PersonalRating = ({ press, location }: IPersonalRating) => {
             <View className='flex flex-row space-x-3'>
                 <View className='items-center justify-center'>
                     <Image
-                        source={require('@asset/images/benthanh.jpg')}
+                        source={{uri: location.locationMedias[0].locationMediaUrl}}
                         style={{ width: 80, height: 80 }}
                         className='rounded-xl'
                     />

@@ -37,12 +37,12 @@ const DestinationReviewScreen = ({
 
     return (
         <SafeAreaView className='flex-1 mx-4 mt-4'>
-            <FlatList
+            {/* <FlatList
                 ListHeaderComponent={renderHeader}
                 data={arr}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => <Review />}
-            />
+            /> */}
         </SafeAreaView>
     );
 };

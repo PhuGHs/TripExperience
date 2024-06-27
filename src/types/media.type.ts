@@ -19,11 +19,11 @@ export type TPostMedia = {
 };
 
 export type TFeedbackMedia = {
-    feedbackMediaId: number;
-    feedbackMediaOrder: string;
+    feedbackMediaId?: number;
+    feedbackMediaOrder: number;
     feedbackMediaUrl: string;
     feedbackId: number;
-    feedback: TFeedback;
+    feedback?: TFeedback;
 };
 
 export type TLocationMedia = {
