@@ -20,6 +20,7 @@ export type RootStackParamList = {
     GroupDetailScreen: { groupId: number };
     PostDetailScreen: { postId: number };
     NewPostScreen: undefined;
+    SearchCityScreen: undefined;
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -59,6 +60,7 @@ export type SearchConversationScreenProps = NativeStackScreenProps<
     RootStackParamList,
     'SearchConversation'
 >;
+export type SearchCityScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchCityScreen'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

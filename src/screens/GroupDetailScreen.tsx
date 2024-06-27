@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GroupDetailScreenProps, RootStackParamList } from "@type/navigator.type";
 import { RouteProp } from '@react-navigation/native';
-import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import FamousDestination from "@component/FamousDestination";
 import ReviewDestination from "@component/ReviewDestination";
+import { TCity } from "@type/city.type";
+import { CityApi } from "@api/city.api";
+import { TLocation } from "@type/location.type";
+import { LocationApi } from "@api/location.api";
 
 const arr: Number[] = [1, 2, 3, 4, 5]
 
@@ -13,6 +17,29 @@ const GroupDetailScreen = ({
     route,
     navigation,
 }: GroupDetailScreenProps & { route: RouteProp<RootStackParamList, 'GroupDetailScreen'> }) => {
+    const { groupId } = route.params;
+    const [city, setCity] = useState<TCity>(null);
+    const [location, setLocation] = useState<TLocation[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchAPI = async () => {
+            try {
+                const { message, data } = await CityApi.getDetail(groupId);
+                setCity(data);
+                const { data: locations } = await LocationApi.getLocationByCity(groupId);
+                setLocation(locations);
+                setLoading(false);
+            }
+            catch (error) {
+                console.log("Err: ", error);
+                setLoading(false);
+            }
+        }
+
+        fetchAPI();
+    }, [])
+
     const renderHeader = () => (
         <>
             <View className="flex flex-row items-center mt-2 mb-5">
@@ -21,7 +48,7 @@ const GroupDetailScreen = ({
                     className='p-2 rounded-xl border border-slate-300'>
                     <FontAwesomeIcon icon={faAngleLeft} size={20} />
                 </TouchableOpacity>
-                <Text className="flex-1 text-center mr-[20px] text-primary text-xl font-bold">TP Hồ Chí Minh</Text>
+                <Text className="flex-1 text-center mr-[20px] text-primary text-xl font-bold">{city.cityName}</Text>
             </View>
 
             <View className=' mb-4'>
@@ -29,9 +56,10 @@ const GroupDetailScreen = ({
                 <FlatList
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    data={arr}
+                    data={location}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item, index }) => <FamousDestination press={() => navigation.push('DestinationDetails', { destinationId: 1 })} />}
+                    renderItem={({ item, index }) => <FamousDestination destination={item}
+                        press={() => navigation.push('DestinationDetails', { destinationId: 1 })} />}
                 />
             </View>
             <View>
@@ -47,14 +75,18 @@ const GroupDetailScreen = ({
 
     return (
         <SafeAreaView className="flex flex-1 h-full w-full">
-            <FlatList
-                style={{ paddingHorizontal: 16 }}
-                ListHeaderComponent={renderHeader}
-                showsVerticalScrollIndicator={false}
-                data={arr}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => <ReviewDestination press={() => navigation.push('PostDetailScreen', { postId: 1 })} />}
-            />
+            {
+                loading ? <ActivityIndicator size="small" color="#FF6F61" />
+                    : <FlatList
+                        style={{ paddingHorizontal: 16 }}
+                        ListHeaderComponent={renderHeader}
+                        showsVerticalScrollIndicator={false}
+                        data={arr}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => <ReviewDestination press={() => navigation.push('PostDetailScreen', { postId: 1 })} />}
+                    />
+            }
+
 
         </SafeAreaView>
     )

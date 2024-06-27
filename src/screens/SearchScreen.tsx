@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
-import { View, Text, Switch, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Switch, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchBar from 'react-native-dynamic-search-bar';
 import { TabsScreenProps } from '@type/navigator.type';
 import Group from '@component/Group';
 import FamousDestination from '@component/FamousDestination';
+import { TCity } from '@type/city.type';
+import { CityApi } from '@api/city.api';
 
 const arr: Number[] = [1, 2, 3, 4, 5]
 
 const SearchScreen = ({ navigation }: TabsScreenProps) => {
     const [isLocationSearch, setLocationSearch] = useState<boolean>(false);
     const [isLocation, setLocation] = useState<boolean>(false);
+    const [city, setCity] = useState<TCity[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchAPI = async () => {
+            try {
+                const { message, data } = await CityApi.getAll();
+                setCity(data);
+                setLoading(false);
+            }
+            catch (error) {
+                console.log("Err: ", error);
+                setLoading(false);
+            }
+        }
+
+        fetchAPI();
+    }, [])
 
     const handleTextChange = (text) => {
         console.log(text);
@@ -45,18 +65,22 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
                     placeholder={isLocationSearch ? 'Bạn muốn đi đâu?' : 'Bạn muốn tìm bài viết nào?'}
                     spinnerVisibility={false}
                     returnKeyType='search'
-                    onFocus={() => navigation.push('SearchConversation')}
+                    onFocus={() => navigation.push('SearchCityScreen')}
                     onChangeText={handleTextChange}
                 />
                 <View className='mb-4'>
                     <Text className='font-bold text-primary text-xl mb-2'>Danh sách các tỉnh</Text>
-                    <FlatList
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        data={arr}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => <Group press={() => { navigation.navigate('GroupDetailScreen', { groupId: 1 }) }} />}
-                    />
+                    {
+                        loading ? <ActivityIndicator size="small" color="#FF6F61" />
+                            : <FlatList
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                data={city}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({ item, index }) => <Group city={item} press={() => { navigation.navigate('GroupDetailScreen', { groupId: item.cityId }) }} />}
+                            />
+                    }
+
                 </View>
                 <View className='mb-4'>
                     <Text className='font-bold text-primary text-xl'>Địa điểm du lịch lân cận</Text>
@@ -68,7 +92,8 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
                                 showsHorizontalScrollIndicator={false}
                                 data={arr}
                                 keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item, index }) => <FamousDestination press={() => navigation.push('DestinationDetails', { destinationId: 1 })} />}
+                                renderItem={({ item, index }) => <FamousDestination destination={item}
+                                    press={() => navigation.push('DestinationDetails', { destinationId: 1 })} />}
                             />
                             : <View className='px-5 py-5 bg-[#096C47] rounded-lg mt-5'>
                                 <Text className='text-center font-bold text-white text-2xl mb-2'>Xem địa điểm du lịch lân cận</Text>

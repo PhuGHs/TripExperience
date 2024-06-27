@@ -1,14 +1,16 @@
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TLocation } from '@type/location.type';
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface IFamousDestination {
     press: () => void;
+    destination: TLocation
 }
 
-const FamousDestination = ({ press }: IFamousDestination) => {
+const FamousDestination = ({ press, destination }: IFamousDestination) => {
     return (
         <TouchableOpacity
             onPress={press}
@@ -24,12 +26,12 @@ const FamousDestination = ({ press }: IFamousDestination) => {
                 />
                 <View className='absolute bottom-0 p-3 w-full space-y-2'>
                     <Text className=' font-bold text-white text-xl'>
-                        Chợ Bến Thành
+                        {destination.locationName}
                     </Text>
                     <View className='flex flex-row justify-between'>
                         <View>
                             <View className='flex flex-row items-center space-x-2'>
-                                <Text className='font-bold text-base text-orange-400'>4.7</Text>
+                                <Text className='font-bold text-base text-orange-400'>{destination.locationRateAverage}</Text>
                                 <FontAwesomeIcon icon={faStar} color='#fb923c' size={25} />
                             </View>
                         </View>

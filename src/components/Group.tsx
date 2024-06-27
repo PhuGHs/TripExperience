@@ -3,18 +3,20 @@ import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { TCity } from "@type/city.type";
 
 interface IGroup {
     press: () => void;
+    city: TCity;
 }
 
-const Group = ({ press }: IGroup) => {
+const Group = ({ press, city }: IGroup) => {
     return (
         <TouchableOpacity
             onPress={press}
             style={styles.container}>
             <ImageBackground
-                source={require('@asset/images/benthanh.jpg')}
+                source={{ uri: `${city.cityUrl}` }}
                 style={styles.imageBackground}
                 imageStyle={styles.image}
             >
@@ -24,7 +26,7 @@ const Group = ({ press }: IGroup) => {
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
                     <Text className=' font-bold text-white text-xl'>
-                        TP Hồ Chí Minh
+                        {city.cityName}
                     </Text>
                 </View>
             </ImageBackground>
