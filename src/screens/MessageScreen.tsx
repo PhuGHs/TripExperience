@@ -5,13 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useInput } from '@hook/useInput';
 import { RouteProp } from '@react-navigation/native';
 import { MessageScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TouchableOpacity, View, Text, Image, FlatList, Keyboard, TextInput } from 'react-native';
 import { ChevronRightIcon } from 'react-native-heroicons/outline';
 import { PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DocumentPickerOptions, DocumentPickerResponse, pick, pickDirectory, types } from 'react-native-document-picker';
 import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
+import { TMessage, TPostMessage } from '@type/chat.type';
+import { UserContext } from '@context/user-context';
+import { ChatApi } from '@api/chat.api';
 
 const arr: boolean[] = [false, false, true, false, true, true, true, true, true];
 
@@ -19,8 +22,11 @@ const MessageScreen = ({
     route,
     navigation,
 }: MessageScreenScreenProps & { route: RouteProp<RootStackParamList, 'MessageScreen'> }) => {
+    const { roomName, conversationId } = route.params;
+    const { user } = useContext(UserContext);
     const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(true);
+    const [messages, setMessages] = useState<TMessage[]>([]);
 
     const handlePickFiles = async () => {
         try {
@@ -30,6 +36,21 @@ const MessageScreen = ({
             };
             const result: DocumentPickerResponse[] = await pick(options);
             console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSendMessage = async () => {
+        const body: TPostMessage = {
+            content: messageValue,
+            messageType: 'text',
+            roomId: conversationId,
+            userId: user.id,
+        };
+        try {
+            const { data, message } = await ChatApi.sendMessages(body);
+            setMessages(prev => [...prev, data]);
         } catch (error) {
             console.log(error);
         }
@@ -54,6 +75,19 @@ const MessageScreen = ({
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data, message } = await ChatApi.getMessages(conversationId);
+                setMessages(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetch();
+    }, [conversationId]);
+    
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
             setKeyboardVisible(true);
@@ -91,7 +125,7 @@ const MessageScreen = ({
                         </TouchableOpacity>
                     </View>
                     <Text className='text-primary text-start font-bold text-[22px] w-[69%] ml-2'>
-                        Lê Văn Phú
+                        {roomName}
                     </Text>
                     <TouchableOpacity className='w-[15%] items-end'>
                         <Image
@@ -103,9 +137,9 @@ const MessageScreen = ({
             </SingleSidedShadowBox>
             <FlatList
                 className='mx-4'
-                data={arr}
+                data={messages}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => <Message is_mine={item} key={index} />}
+                renderItem={({ item, index }) => <Message item={item} is_mine={item.userId === user.id} key={index} />}
             />
             <View className='min-h-[9%] max-h-[20%] py-2 flex flex-row w-full items-center'>
                 {open ? (
@@ -147,7 +181,9 @@ const MessageScreen = ({
                     />
                 </View>
                 {isKeyboardVisible && (
-                    <TouchableOpacity className='w-[15%] items-center'>
+                    <TouchableOpacity
+                        onPress={handleSendMessage}
+                        className='w-[15%] items-center'>
                         <PaperAirplaneIcon size={30} color='#1D84C6' />
                     </TouchableOpacity>
                 )}

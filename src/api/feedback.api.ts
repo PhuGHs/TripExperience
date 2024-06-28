@@ -28,4 +28,9 @@ export class FeedbackApi {
         });
         return response.data;
     }
+
+    static async getFeedbacksByUserIdAndCityId(userId: string, cityId: number): Promise<TSuccessResponse<TFeedback[]>> {
+        const response = await http.get(`/Feedback/${userId}/${cityId}/feedbacks`);
+        return response.data;
+    }
 }

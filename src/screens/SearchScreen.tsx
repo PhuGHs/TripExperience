@@ -6,7 +6,7 @@ import { TabsScreenProps } from '@type/navigator.type';
 import Group from '@component/Group';
 import FamousDestination from '@component/FamousDestination';
 
-const arr: Number[] = [1, 2, 3, 4, 5];
+const arr: number[] = [1, 2, 3, 4, 5];
 
 const SearchScreen = ({ navigation }: TabsScreenProps) => {
     const [isLocationSearch, setLocationSearch] = useState<boolean>(false);

@@ -1,7 +1,13 @@
+import { TChatRoom } from '@type/chat.type';
 import React from 'react';
 import { Image, View, Text, TouchableOpacity } from 'react-native';
 
-const Conversation = ({ press }) => {
+interface IConversation {
+    press: () => void;
+    conversation: TChatRoom
+}
+
+const Conversation = ({ press, conversation }: IConversation) => {
     return (
         <TouchableOpacity
             onPress={press}
@@ -14,7 +20,7 @@ const Conversation = ({ press }) => {
                 />
             </View>
             <View className='flex flex-col justify-evenly w-[80%]'>
-                <Text className='text-primary font-medium text-lg'>Lê Văn Phú</Text>
+                <Text className='text-primary font-medium text-lg'>{conversation.roomName}</Text>
                 <View className='flex flex-row w-full'>
                     <Text numberOfLines={1} className='text-primary w-[70%] max-w-[70%]'>
                         this is a message

@@ -13,16 +13,17 @@ export type RootStackParamList = {
     ReviewDestinationScreen: { location: TLocation };
     PlanDetails: { planId: number };
     UpdatePlan: { plantId: number };
-    DestinationReviewScreen: { provinceId: number };
+    DestinationReviewScreen: { provinceId: number, provinceName: string };
     ProfileScreen: { userId: number };
     EditProfileScreen: { city?: TCity};
     ChatScreen: undefined;
-    MessageScreen: { conversationId: number };
+    MessageScreen: { conversationId: number, roomName: string };
     SearchConversation: undefined;
     GroupDetailScreen: { groupId: number };
     PostDetailScreen: { postId: number };
     NewPostScreen: undefined;
     SearchCityScreen: { type: 'signup' | 'edit'};
+    CreateChatRoom: undefined
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -69,6 +70,11 @@ export type SearchConversationScreenProps = NativeStackScreenProps<
 export type SearchCityScreenProps = NativeStackScreenProps<
     RootStackParamList,
     'SearchCityScreen'
+>;
+
+export type CreateChatRoomScreenProps = NativeStackScreenProps<
+    RootStackParamList,
+    'CreateChatRoom'
 >;
 
 export type BottomTabParamList = {

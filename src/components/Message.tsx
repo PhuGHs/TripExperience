@@ -1,18 +1,20 @@
+import { TMessage } from '@type/chat.type';
 import React, { useState } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 
 interface IMessage {
     is_mine: boolean;
+    item: TMessage
 }
 
-const Message = ({ is_mine }: IMessage) => {
+const Message = ({ is_mine, item }: IMessage) => {
     const [visible, setVisible] = useState<boolean>(false);
     return (
         <View className={`w-full ${is_mine ? 'items-end' : 'items-start'} my-1`}>
             <View className={`max-w-[70%] space-x-4 ${is_mine ? 'flex-row-reverse' : 'flex-row'}`}>
                 <View className='items-center justify-center'>
                     <Image
-                        source={require('@asset/images/benthanh.jpg')}
+                        source={{ uri: item.user.avatar }}
                         style={{
                             width: 40,
                             height: 40,
@@ -28,7 +30,7 @@ const Message = ({ is_mine }: IMessage) => {
                             is_mine ? 'text-right mr-1' : 'text-left ml-1'
                         }`}
                     >
-                        Jackson
+                        {item.user.userName}
                     </Text>
                     <TouchableOpacity
                         className={`px-2 py-3 rounded-xl ${
@@ -41,7 +43,7 @@ const Message = ({ is_mine }: IMessage) => {
                                 is_mine ? 'text-white' : 'text-slate-700'
                             }`}
                         >
-                            kkkkkkkkkkkkkkkkkkkkkkkksd ssssssssssssssssssssssssss
+                            {item.content}
                         </Text>
                     </TouchableOpacity>
                     {visible && (

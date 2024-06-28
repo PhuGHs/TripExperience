@@ -8,4 +8,13 @@ export class UserApi {
         const response = await http.put('/User', body);
         return response.data;
     }
+
+    static async searchUsers(key: string): Promise<TSuccessResponse<TUser[]>> {
+        const response = await http.get('/User/search', {
+            params: {
+                userNameSearchString: key
+            }
+        });
+        return response.data;
+    }
 }

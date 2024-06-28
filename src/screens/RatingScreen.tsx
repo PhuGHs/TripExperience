@@ -79,7 +79,7 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
                 numColumns={2}
                 ListHeaderComponent={renderHeader}
                 renderItem={({ item, index }) => (
-                    <Province province={item} key={index} press={() => navigation.push('DestinationReviewScreen', {provinceId: item.cityId})} />
+                    <Province province={item} key={index} press={() => navigation.push('DestinationReviewScreen', {provinceId: item.cityId, provinceName: item.cityName })} />
                 )}
                 contentContainerStyle={{ paddingBottom: 20 }}
             />

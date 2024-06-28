@@ -84,11 +84,9 @@ const ProfileScreen = ({
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    {/* <FlatList
-                        data={feedbacks}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({item, index}) => <Review feedback={item} key={index} />}
-                    /> */}
+                    <View>
+                        {feedbacks.map((item, index) => <Review feedback={item} key={index} />)}
+                    </View>
                     <TouchableOpacity className='w-full py-4 border-2 rounded-full'>
                         <Text className='text-primary text-center text-lg font-bold'>
                             Viết đánh giá
