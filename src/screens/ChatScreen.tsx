@@ -6,6 +6,7 @@ import { TouchableOpacity, View, Text, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchBar from 'react-native-dynamic-search-bar';
 import Conversation from '@component/Conversation';
+import { UserPlusIcon } from 'react-native-heroicons/outline';
 
 const arr: number[] = [1, 2, 3, 4];
 
@@ -22,7 +23,7 @@ const ChatScreen = ({ navigation }: ChatScreenScreenProps) => {
 
     return (
         <SafeAreaView className='flex flex-1 mx-4 mt-4'>
-            <View className='flex flex-row items-center space-x-4'>
+            <View className='flex flex-row items-center space-x-4 justify-between'>
                 <View className=''>
                     <TouchableOpacity
                         onPress={() => navigation.pop()}
@@ -31,7 +32,10 @@ const ChatScreen = ({ navigation }: ChatScreenScreenProps) => {
                         <FontAwesomeIcon icon={faAngleLeft} size={30} />
                     </TouchableOpacity>
                 </View>
-                <Text className='text-primary font-bold text-[22px]'>Tin nhắn</Text>
+                <Text className='text-primary font-bold text-[22px] text-center'>Tin nhắn</Text>
+                <TouchableOpacity className='items-center justify-center w-[10%]'>
+                    <UserPlusIcon size={24} color='#1E1E1E' />
+                </TouchableOpacity>
             </View>
             <SearchBar
                 style={{ height: 55, width: '100%' }}

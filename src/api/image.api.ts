@@ -7,4 +7,8 @@ export class ImageApi {
         const response = await http.post('/User/photos', body);
         return response.data;
     }
+    static async pushImage(body: TPushImage): Promise<TSuccessResponse<TImage>> {
+        const response = await http.post('/User/photo', body);
+        return response.data;
+    }
 }

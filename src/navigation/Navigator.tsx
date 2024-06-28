@@ -22,6 +22,7 @@ import GroupDetailScreen from '@screen/GroupDetailScreen';
 import PostDetailScreen from '@screen/PostDetailScreen';
 import NewPostScreen from '@screen/NewPostScreen';
 import { useAuth } from '@context/auth-context';
+import SearchCityScreen from '@screen/SearchCityScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,6 +44,7 @@ const Navigator = () => {
                         <Stack.Screen name='Welcome' component={WelcomeScreen} />
                         <Stack.Screen name='SignIn' component={SignInScreen} />
                         <Stack.Screen name='SignUp' component={SignUpScreen} />
+                        <Stack.Screen name='SearchCityScreen' component={SearchCityScreen} />
                     </>
                 ) : (
                     <>
@@ -71,6 +73,7 @@ const Navigator = () => {
                         <Stack.Screen name='GroupDetailScreen' component={GroupDetailScreen} />
                         <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
                         <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
+                        <Stack.Screen name='SearchCityScreen' component={SearchCityScreen} />
                     </>
                 )}
             </Stack.Navigator>

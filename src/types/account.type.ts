@@ -1,3 +1,4 @@
+import { TCity } from './city.type';
 import { TUser } from './user.type';
 
 export type TLoginPost = {
@@ -19,3 +20,12 @@ export type TAuth = {
     expiresRefreshToken: string;
     user: TUser;
 };
+
+export type TSignUp = {
+    userName: string,
+    phone: string,
+    city: TCity,
+    cityId: number,
+    email: string,
+    password: string
+}

@@ -2,16 +2,23 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
 import { EditProfileScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React from 'react';
-import { TouchableOpacity, View, Text, Image, TextInput } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { TouchableOpacity, View, Text, Image, TextInput, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { CameraIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
+    Asset,
     ImageLibraryOptions,
     ImagePickerResponse,
     launchCamera,
     launchImageLibrary,
 } from 'react-native-image-picker';
+import { UserContext } from '@context/user-context';
+import { useInput } from '@hook/useInput';
+import { UserApi } from '@api/user.api';
+import { ImageApi } from '@api/image.api';
+import { TPutUser } from '@type/user.type';
+import { ToastOptions, toast } from '@baronha/ting';
 
 const EditProfile = ({
     route,
@@ -19,6 +26,11 @@ const EditProfile = ({
 }: EditProfileScreenScreenProps & {
     route: RouteProp<RootStackParamList, 'EditProfileScreen'>;
 }) => {
+    const { user, setUser } = useContext(UserContext);
+    const [selectedImage, setSelectedImage] = useState<Asset>();
+    const [image, setImage] = useState<string>('');
+    const [executed, setExecuted] = useState<boolean>(true);
+
     const pickImages = async () => {
         const options: ImageLibraryOptions = {
             mediaType: 'photo',
@@ -27,10 +39,66 @@ const EditProfile = ({
             presentationStyle: 'fullScreen',
         };
         const result: ImagePickerResponse = await launchImageLibrary(options);
-        console.log(result);
+        setSelectedImage(result.assets[0]);
+        setImage(result.assets[0].uri);
     };
+
+    const {
+        value: userName,
+        handleInputBlur: handleUserNameBlur,
+        handleInputChange: handleUserNameChange,
+        setEnteredValue: setUserName,
+        didEdit: userNameDidEdit,
+        hasError: userNameHasError,
+    } = useInput({
+        defaultValue: user.userName,
+        validationFn: () => true,
+    });
+
+    const {
+        value: introduction,
+        handleInputChange: handleIntroductionChange,
+        handleInputBlur: handleIntroductionBlur,
+        setEnteredValue: setIntroductionValue,
+        hasError: introductionHasError,
+        didEdit,
+        setDidEdit,
+    } = useInput({
+        defaultValue: user.userDescription ? user.userDescription : '',
+        validationFn: (value) => value.trim().split(/\s+/).length > 2,
+    });
+
+    const wordCount = introduction.trim().split(/\s+/).length;
+
+    const handleChangeInfo = async () => {
+        try {
+            setExecuted(false);
+            const { data, message } = await ImageApi.pushImage({fileName: selectedImage.fileName, base64: selectedImage.base64});
+            const body: TPutUser = {
+                avatar: data.photoUrl,
+                userId: user.id,
+                userDescription: introduction,
+                cityId: route.params ? route.params.city.cityId : 4
+            };
+            const { data: us} = await UserApi.changeInfo(body);
+            const options: ToastOptions = {
+                title: 'Đã thay đổi thành công',
+                message: 'Bạn kiểm tra lại nhé',
+                preset: 'done',
+                backgroundColor: '#e2e8f0',
+            };
+            setExecuted(true);
+            toast(options);
+            setUser(us);
+        } catch (error) {
+            console.log(error);
+            setExecuted(true);
+        }
+    };
+
     return (
-        <SafeAreaView className='flex flex-1 mx-4 mt-4'>
+        <>
+            <ScrollView className='flex flex-1 mx-4 mt-4'>
             <View className='flex flex-row justify-between items-center'>
                 <View className=''>
                     <TouchableOpacity
@@ -47,7 +115,7 @@ const EditProfile = ({
                 <TouchableOpacity onPress={pickImages} className='items-center'>
                     <View style={{ width: 100, height: 100, borderRadius: 100 / 2 }}>
                         <Image
-                            source={require('@asset/images/benthanh.jpg')}
+                            source={image === '' ? {uri: user.avatar } : { uri: image }}
                             style={{ width: 100, height: 100, borderRadius: 100 / 2 }}
                         />
                         <View
@@ -61,16 +129,25 @@ const EditProfile = ({
                 <View className='space-y-2'>
                     <Text className='text-primary font-bold text-base'>Tên</Text>
                     <TextInput
-                        className='border-2 border-gray-400 rounded-lg text-base font-bold px-4 py-3'
+                        editable={false}
+                        value={userName}
+                        onChange={handleUserNameChange}
+                        onBlur={handleUserNameBlur}
+                        className='border-2 border-gray-400 rounded-lg text-primary text-base font-regular px-4 py-3'
                         placeholder='Tên của bạn'
+                        placeholderTextColor='#94a38b'
                     />
                 </View>
                 <View className='space-y-2'>
                     <Text className='text-primary font-bold text-base'>Thành phố hiện tại</Text>
-                    <View className='flex flex-row rounded-lg border-2 border-gray-400 w-full'>
+                    <View
+                        className='flex flex-row rounded-lg border-2 border-gray-400 w-full'>
                         <TextInput
-                            className='text-base font-bold px-4 py-3 w-[90%]'
+                            value={route.params ? route.params.city.cityName : user.city.cityName}
+                            onFocus={() => navigation.push('SearchCityScreen', { type: 'edit'})}
+                            className='text-base font-regular px-4 py-3 w-[90%] text-primary'
                             placeholder='Tìm kiếm'
+                            placeholderTextColor='#94a3b8'
                             returnKeyType='search'
                         />
                         <View className='w-[10%] items-center justify-center'>
@@ -82,19 +159,46 @@ const EditProfile = ({
                     <Text className='text-primary font-bold text-base'>Giới thiệu</Text>
                     <View className='border-2 border-gray-400 rounded-lg min-h-[150px]'>
                         <TextInput
-                            className='text-base font-bold px-4 py-3'
+                            value={introduction}
+                            onChange={handleIntroductionChange}
+                            onBlur={handleIntroductionBlur}
+                            className='text-base font-regular px-4 py-3 text-primary'
                             placeholder='Viết vài điều về bạn.'
+                            placeholderTextColor='#94a3b8'
                             multiline={true}
                         />
-                        <Text className='absolute bottom-2 right-2 text-primary'>0/160</Text>
+                        <Text className='absolute bottom-2 right-2 text-primary'>{wordCount}/60</Text>
                     </View>
+                    {introductionHasError && didEdit && <Text className='text-main'>Mục giới thiệu cần tối thiểu 3 từ</Text>}
                 </View>
-                <TouchableOpacity className='bg-main rounded-full py-4'>
+                <TouchableOpacity
+                    disabled={introductionHasError}
+                    onPress={handleChangeInfo}
+                    className='bg-main rounded-xl py-4'>
                     <Text className='text-white font-bold text-center text-xl'>Lưu</Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </ScrollView>
+        {!executed && (
+            <View style={styles.overlay}>
+                <ActivityIndicator size='large' color='#FF6F61' />
+            </View>
+        )}
+        </>
     );
 };
+
+const styles = StyleSheet.create({
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+});
 
 export default EditProfile;

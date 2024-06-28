@@ -53,7 +53,7 @@ const ProfileScreen = ({
                     <View className='mt-6 flex flex-row space-x-4'>
                         <View>
                             <Image
-                                source={require('@asset/images/benthanh.jpg')}
+                                source={{ uri: user.avatar }}
                                 style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
                             />
                         </View>
@@ -64,13 +64,12 @@ const ProfileScreen = ({
                     </View>
                     <TouchableOpacity>
                         <Text className='text-gray-600 text-lg'>
-                            Hãy chia sẻ một chút về bản thân để những khách du lịch khác có thể tìm
-                            hiểu về bạn!
+                            {user.userDescription ? user.userDescription : 'Hãy chia sẻ một chút về bản thân để những khách du lịch khác có thể tìm hiểu về bạn!'}
                         </Text>
                     </TouchableOpacity>
                     <View className='mb-6 flex flex-row space-x-3 items-center'>
                         <MapPinIcon size={25} color='#1e1e1e' />
-                        <Text className='text-primary text-base'>Đông Hà, Việt Nam</Text>
+                        <Text className='text-primary text-base'>{user.city ? user.city.cityName + ', ' : ''}Việt Nam</Text>
                     </View>
                 </View>
                 <View className='space-y-4 border-b-[1.5px] border-gray-400 pb-6'>
@@ -85,11 +84,11 @@ const ProfileScreen = ({
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <FlatList
+                    {/* <FlatList
                         data={feedbacks}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({item, index}) => <Review feedback={item} key={index} />}
-                    />
+                    /> */}
                     <TouchableOpacity className='w-full py-4 border-2 rounded-full'>
                         <Text className='text-primary text-center text-lg font-bold'>
                             Viết đánh giá

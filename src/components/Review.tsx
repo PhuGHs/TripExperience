@@ -120,7 +120,7 @@ const Review = ({ feedback }: IFeedback) => {
             <View className='flex flex-row space-x-3'>
                 <View className='w-[18%] items-center'>
                     <Image
-                        source={require('@asset/images/benthanh.jpg')}
+                        source={{ uri: user.avatar }}
                         style={{ width: 65, height: 65, borderRadius: 65 / 2 }}
                     />
                 </View>

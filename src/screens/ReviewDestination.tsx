@@ -3,8 +3,8 @@ import { faCloudUpload, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
 import { ReviewDestinationScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React, { Ref, useContext, useEffect, useRef, useState } from 'react';
-import { TouchableOpacity, View, Text, TextInput, ScrollView, Image, Keyboard } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { TouchableOpacity, View, Text, TextInput, ScrollView, Image, Keyboard, StyleSheet, ActivityIndicator } from 'react-native';
 import {
     Asset,
     ImageLibraryOptions,
@@ -39,6 +39,7 @@ const ReviewDestination = ({
     const [selectedKinds, setSelectedKinds] = useState(kinds);
     const [listImages, setListImages] = useState<Asset[]>([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+    const [executed, setExecuted] = useState<boolean>(true);
 
     const handleSelectKinds = (id: number) => {
         setSelectedKinds((prev) => prev.map((item, index) => {
@@ -88,6 +89,7 @@ const ReviewDestination = ({
     const remainingWords = 100 - wordCount;
 
     const handleGiveFeedback = async () => {
+        setExecuted(false);
         const selectedKind = selectedKinds.find((item, index) => item.selected);
         const body: TPostFeedback = {
             locationId: location.locationId,
@@ -118,6 +120,7 @@ const ReviewDestination = ({
             };
             toast(options);
             navigation.popToTop();
+            setExecuted(true);
         } catch (error) {
             console.log(error);
             const options: ToastOptions = {
@@ -127,6 +130,7 @@ const ReviewDestination = ({
                 backgroundColor: '#e2e8f0',
             };
             toast(options);
+            setExecuted(true);
         }
     };
 
@@ -239,6 +243,7 @@ const ReviewDestination = ({
                         {thoughtsHasError && didEdit && <Text className='text-[#F3641A]'>Bạn cần viết tối thiểu 6 từ</Text>}
                         <TouchableOpacity
                             onPress={handleGiveFeedback}
+                            disabled={thoughtsHasError || star === 0 || selectedKinds.find((item, index) => item.selected) === undefined}
                             className='bg-main rounded-xl py-4'>
                             <Text className='text-center font-bold text-white text-lg'>
                                 Thêm đánh giá
@@ -247,8 +252,26 @@ const ReviewDestination = ({
                     </View>
                 </ScrollView>
             </SafeAreaView>
+            {!executed && (
+            <View style={styles.overlay}>
+                <ActivityIndicator size='large' color='#FF6F61' />
+            </View>
+        )}
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    overlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+});
 
 export default ReviewDestination;

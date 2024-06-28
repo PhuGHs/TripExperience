@@ -14,7 +14,7 @@ export class FeedbackApi {
     }
 
     static async giveFeedback(body: TPostFeedback): Promise<TSuccessResponse<TFeedback>> {
-        const response = await http.post('/Feedback', body);
+        const response = await http.post('/Feedback/add-to-db', body);
         return response.data;
     }
 

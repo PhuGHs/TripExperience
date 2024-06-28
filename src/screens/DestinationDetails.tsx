@@ -65,7 +65,7 @@ const DestinationDetails = ({
     if (location === null) {
         return (
             <View style={styles.overlay}>
-                <ActivityIndicator size='large' color='#0000ff' />
+                <ActivityIndicator size='large' color='#FF6F61' />
             </View>
         );
     }
@@ -208,7 +208,7 @@ const DestinationDetails = ({
             </SafeAreaView>
             {!executed && (
                 <View style={styles.overlay}>
-                    <ActivityIndicator size='large' color='#0000ff' />
+                    <ActivityIndicator size='large' color='#FF6F61' />
                 </View>
             )}
         </>

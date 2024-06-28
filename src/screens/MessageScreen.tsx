@@ -10,6 +10,8 @@ import { TouchableOpacity, View, Text, Image, FlatList, Keyboard, TextInput } fr
 import { ChevronRightIcon } from 'react-native-heroicons/outline';
 import { PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { DocumentPickerOptions, DocumentPickerResponse, pick, pickDirectory, types } from 'react-native-document-picker';
+import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
 
 const arr: boolean[] = [false, false, true, false, true, true, true, true, true];
 
@@ -20,6 +22,38 @@ const MessageScreen = ({
     const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(true);
 
+    const handlePickFiles = async () => {
+        try {
+            const options: DocumentPickerOptions = {
+                allowMultiSelection: true,
+                type: [types.pdf, types.docx, types.doc]
+            };
+            const result: DocumentPickerResponse[] = await pick(options);
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const pickImages = async () => {
+        try {
+            const options: ImageLibraryOptions = {
+                mediaType: 'photo',
+                selectionLimit: 3,
+                includeBase64: true,
+                presentationStyle: 'fullScreen',
+                quality: 0.6
+            };
+            const result: ImagePickerResponse = await launchImageLibrary(options);
+            if (!result.errorCode) { 
+                if (result.assets) {
+                    console.log('sdadsa');
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
             setKeyboardVisible(true);
@@ -76,10 +110,14 @@ const MessageScreen = ({
             <View className='min-h-[9%] max-h-[20%] py-2 flex flex-row w-full items-center'>
                 {open ? (
                     <View className='flex flex-row max-w-[30%] w-[25%] items-center'>
-                        <TouchableOpacity className='w-[50%] items-center'>
+                        <TouchableOpacity
+                            onPress={handlePickFiles}
+                            className='w-[50%] items-center'>
                             <PaperClipIcon size={30} color='#334155' />
                         </TouchableOpacity>
-                        <TouchableOpacity className='w-[50%] items-center'>
+                        <TouchableOpacity 
+                            onPress={pickImages}
+                            className='w-[50%] items-center'>
                             <PhotoIcon size={30} color='#1D84C6' />
                         </TouchableOpacity>
                     </View>

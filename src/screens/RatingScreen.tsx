@@ -18,25 +18,30 @@ const RatingScreen = ({ navigation }: TabsScreenProps) => {
     const [provinces, setProvinces] = useState<TCity[]>([]);
 
     useEffect(() => {
-        const fetch = async () => {
-            try {
-                const { data, message } = await FeedbackApi.getUserFeedbacks(user.id);
-                setFeedbacks(data);
-                const { data: cities } = await CityApi.getProvinces(user.id);
-                setProvinces(cities);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetch();
-    }, []);
+        const unsubscribe = navigation.addListener('focus', () => {
+            const fetch = async () => {
+                try {
+                    const { data, message } = await FeedbackApi.getUserFeedbacks(user.id);
+                    setFeedbacks(data);
+                    const { data: cities } = await CityApi.getProvinces(user.id);
+                    setProvinces(cities);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetch();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
     const renderHeader = () => (
         <View className='space-y-3'>
             <View className='flex flex-col space-y-6'>
                 <View className='flex flex-row space-x-5'>
                     <View className='w-[15%]'>
                         <Image
-                            source={require('@asset/images/benthanh.jpg')}
+                            source={{ uri: user.avatar }}
                             style={{ width: 60, height: 60, borderRadius: 60 / 2 }}
                         />
                     </View>
