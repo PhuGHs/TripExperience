@@ -34,8 +34,8 @@ export type TLocationMedia = {
 };
 
 export type TMessageMedia = {
-    id: number,
-    messageId: number,
+    id?: number,
+    messageId?: number,
     order: number,
     url: string
 }

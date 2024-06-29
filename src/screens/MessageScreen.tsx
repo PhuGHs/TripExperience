@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useInput } from '@hook/useInput';
 import { RouteProp } from '@react-navigation/native';
 import { MessageScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React, { useContext, useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, Image, FlatList, Keyboard, TextInput } from 'react-native';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { TouchableOpacity, View, Text, Image, FlatList, Keyboard, TextInput, Platform, AppState, NativeEventSubscription } from 'react-native';
 import { ChevronRightIcon } from 'react-native-heroicons/outline';
 import { PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,8 +15,12 @@ import { ImageLibraryOptions, ImagePickerResponse, launchImageLibrary } from 're
 import { TMessage, TPostMessage } from '@type/chat.type';
 import { UserContext } from '@context/user-context';
 import { ChatApi } from '@api/chat.api';
-
-const arr: boolean[] = [false, false, true, false, true, true, true, true, true];
+import RNFetchBlob from 'rn-fetch-blob';
+import { HubConnectionBuilder } from '@microsoft/signalr';
+import { ImageApi } from '@api/image.api';
+import { NotificationID, NotificationType } from '@type/notification.type';
+import { AndroidImportance, AndroidLaunchActivityFlag, AndroidVisibility } from '@notifee/react-native';
+import notifee from '@notifee/react-native';
 
 const MessageScreen = ({
     route,
@@ -27,15 +31,131 @@ const MessageScreen = ({
     const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(true);
     const [messages, setMessages] = useState<TMessage[]>([]);
+    const [connection, setConnection] = useState(null);
+    const [appState, setAppState] = useState(AppState.currentState);
+
+  const handleAppStateChange = useCallback(
+    (newState: any) => {
+      console.log(`AppState changed to ${newState}`);
+      setAppState(newState);
+    },
+    []
+  );
+
+  const handlePushNotification = useCallback(
+    async (
+      enabled: boolean,
+      notificationID: string,
+      notificationType: NotificationType,
+      message: string
+    ) => {
+      if (!enabled) {
+        return;
+      }
+      const channelId = await notifee.createChannel({
+        id: notificationID,
+        name: 'TripX',
+        visibility: AndroidVisibility.PUBLIC,
+        importance: AndroidImportance.HIGH,
+      });
+
+      if (notificationType === NotificationType.Eating) {
+        await notifee.displayNotification({
+          title: roomName,
+          body: message,
+          android: {
+            channelId,
+            importance: AndroidImportance.HIGH,
+            pressAction: {
+              id: 'androidOpenApp',
+              launchActivity: 'default',
+              launchActivityFlags: [AndroidLaunchActivityFlag.SINGLE_TOP],
+            },
+            actions: [
+              {
+                title: 'Stop Eating', 
+                pressAction: {
+                  id: 'stop-eating',
+                },
+              },
+            ],
+          },
+        });
+      } else if (notificationType === NotificationType.Sleeping) {
+        await notifee.displayNotification({
+          title: roomName,
+          body: message,
+          android: {
+            channelId,
+            importance: AndroidImportance.HIGH,
+            pressAction: {
+              id: 'androidOpenApp',
+              launchActivity: 'default',
+              launchActivityFlags: [AndroidLaunchActivityFlag.SINGLE_TOP],
+            },
+
+            actions: [
+              {
+                title: 'Stop Sleeping',
+                pressAction: {
+                  id: 'stop-sleeping',
+                },
+              },
+            ],
+          },
+        });
+      } 
+    }, []
+  );
+
+  useEffect(() => {
+    let isActive = true;
+    let appStateSubscriber: NativeEventSubscription;
+    const loadNavSubscriber = async () => {
+      if (isActive) {
+        // Adding the listener for whether the user leaves the app
+        appStateSubscriber = AppState.addEventListener('change', 
+        handleAppStateChange);
+      }
+    };
+    loadNavSubscriber();
+    
+    // It's always good practice to ask the user for notification permissions
+    const getNotificationPermissions = async () => {
+      if (isActive) {
+        const settings = await notifee.requestPermission();
+      }
+    };
+    getNotificationPermissions();
+    return () => {
+      isActive = false;
+      if (appStateSubscriber) appStateSubscriber.remove();
+    };
+  }, []);
 
     const handlePickFiles = async () => {
         try {
             const options: DocumentPickerOptions = {
-                allowMultiSelection: true,
+                allowMultiSelection: false,
                 type: [types.pdf, types.docx, types.doc]
             };
             const result: DocumentPickerResponse[] = await pick(options);
-            console.log(result);
+            const filebase = await RNFetchBlob.fs.readFile(result[0].uri, 'base64');
+            const { data, message } = await ImageApi.pushImage({ fileName: result[0].name, base64: filebase });
+            const body: TPostMessage = {
+                content: 'Sent a file',
+                messageType: 'file',
+                roomId: conversationId,
+                userId: user.id,
+                files: [
+                    {
+                       order: 1,
+                       url: data.photoUrl 
+                    }
+                ]
+            };
+            const { data: ms } = await ChatApi.sendMessages(body);
+            setMessages(prev => [...prev, ms]);
         } catch (error) {
             console.log(error);
         }
@@ -51,6 +171,7 @@ const MessageScreen = ({
         try {
             const { data, message } = await ChatApi.sendMessages(body);
             setMessages(prev => [...prev, data]);
+            setMessageValue('');
         } catch (error) {
             console.log(error);
         }
@@ -77,6 +198,38 @@ const MessageScreen = ({
     };
 
     useEffect(() => {
+        const connect = new HubConnectionBuilder()
+            .withUrl('https://ed71-171-250-164-150.ngrok-free.app/chathub')
+            .withAutomaticReconnect()
+            .build();
+
+        setConnection(connect);
+    }, []);
+
+    
+
+    useEffect(() => {
+        if (connection) {
+            connection
+              .start()
+              .then(() => {
+                console.log('SignalR connected');
+                connection.on('ReceiveMessage', (result) => {
+                    if (result.user.id !== user.id && result.roomId === conversationId) {
+                        setMessages(prev => [...prev, result]);
+                        handlePushNotification(
+                          Platform.OS === 'ios' && appState === 'inactive' || Platform.OS === 'android' && appState === 'background', 
+                          NotificationID.DefaultID,
+                            NotificationType.Sleeping,
+                            result.content
+                          );
+                    }
+                });
+              })
+              .catch((error) => {
+                console.error('Error starting SignalR connection:', error);
+              });
+          }
         const fetch = async () => {
             try {
                 const { data, message } = await ChatApi.getMessages(conversationId);
@@ -86,7 +239,7 @@ const MessageScreen = ({
             }
         };
         fetch();
-    }, [conversationId]);
+    }, [conversationId, connection]);
     
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -137,8 +290,9 @@ const MessageScreen = ({
             </SingleSidedShadowBox>
             <FlatList
                 className='mx-4'
-                data={messages}
+                data={messages.slice().reverse()}
                 keyExtractor={(item, index) => index.toString()}
+                inverted={true}
                 renderItem={({ item, index }) => <Message item={item} is_mine={item.userId === user.id} key={index} />}
             />
             <View className='min-h-[9%] max-h-[20%] py-2 flex flex-row w-full items-center'>

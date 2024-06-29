@@ -30,7 +30,7 @@ const CreateChatRoom = ({
 
     const handleSearch = async (text: string) => {
         try {
-            const { data, message} = await UserApi.searchUsers(text);
+            const { data, message} = await UserApi.searchUsers(text, user.id);
             setUsersFound(data);
         } catch (error) {
             console.log(error);
@@ -70,7 +70,7 @@ const CreateChatRoom = ({
         const arr: string[] = [...selectedUsers.map((item, index) => item.id), user.id];
         const body: TPostChatRoom = {
             roomName: userName,
-            userIds: arr
+            userIdsJoin: arr
         };
         if (arr.length < 3) {
             const options: ToastOptions = {

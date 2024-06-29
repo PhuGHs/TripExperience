@@ -6,7 +6,7 @@ import SignInScreen from '@screen/SignInScreen';
 import SignUpScreen from '@screen/SignUpScreen';
 import WelcomeScreen from '@screen/WelcomeScreen';
 import { RootStackParamList } from '@type/navigator.type';
-import React from 'react';
+import React, { useContext } from 'react';
 import Tabs from './BottomTab';
 import SearchDestinationRatingScreen from '@screen/SearchDestinationRatingScreen';
 import ReviewDestination from '@screen/ReviewDestination';
@@ -24,6 +24,7 @@ import NewPostScreen from '@screen/NewPostScreen';
 import { useAuth } from '@context/auth-context';
 import SearchCityScreen from '@screen/SearchCityScreen';
 import CreateChatRoom from '@screen/CreateChatRoom';
+import { UserContext } from '@context/user-context';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,10 +38,11 @@ const theme: Theme = {
 
 const Navigator = () => {
     const { token } = useAuth();
+    const { user } = useContext(UserContext);
     return (
         <NavigationContainer theme={theme}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                {token === null ? (
+                {token === null || user === null ? (
                     <>
                         <Stack.Screen name='Welcome' component={WelcomeScreen} />
                         <Stack.Screen name='SignIn' component={SignInScreen} />

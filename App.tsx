@@ -1,10 +1,9 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Navigator from '@navigation/Navigator';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AuthProvider } from '@context/auth-context';
 import { UserProvider } from '@context/user-context';
-import { ToastAndroid } from 'react-native';
 
 if (__DEV__) {
   require('./ReactotronConfig');

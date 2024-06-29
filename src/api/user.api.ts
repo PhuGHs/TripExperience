@@ -9,10 +9,11 @@ export class UserApi {
         return response.data;
     }
 
-    static async searchUsers(key: string): Promise<TSuccessResponse<TUser[]>> {
+    static async searchUsers(key: string, userId: string): Promise<TSuccessResponse<TUser[]>> {
         const response = await http.get('/User/search', {
             params: {
-                userNameSearchString: key
+                userNameSearchString: key,
+                userIdNotInList: userId
             }
         });
         return response.data;

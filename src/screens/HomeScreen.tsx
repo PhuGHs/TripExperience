@@ -88,7 +88,7 @@ const HomeScreen = ({ navigation }: TabsScreenProps) => {
             <ScrollView className='h-full'>
                 <View className='h-[120px] px-6 items-center bg-main flex-row justify-between'>
                     <View className='flex flex-col space-y-2'>
-                        <Text className='text-white text-base font-semibold'>Xin chào {user.userName}, </Text>
+                        <Text className='text-white text-base font-semibold'>Xin chào {user.userName ? user.userName : ''}, </Text>
                         <Text className='font-bold text-white text-3xl'>Khám phá</Text>
                     </View>
                     <View>

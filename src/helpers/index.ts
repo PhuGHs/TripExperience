@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export class Helper {
     static formatDate(dateString: string): string {
         const date = new Date(dateString);
@@ -22,4 +24,23 @@ export class Helper {
 
         return formattedDate;
     }
+
+    static formatDate1 = (dateString: string): string => {
+        const inputDate = moment(dateString);
+        const today = moment();
+
+        if (inputDate.isSame(today, 'day')) {
+            return inputDate.format('h:mm A');
+        }
+
+        if (inputDate.isSame(today, 'month') && inputDate.isSame(today, 'year')) {
+            return inputDate.format('D MMM [at] h:mm A');
+        }
+
+        if (inputDate.isSame(today, 'year')) {
+            return inputDate.format('D MMMM [at] h:mm A');
+        }
+
+        return inputDate.format('D MMMM YYYY [at] h:mm A');
+    };
 }

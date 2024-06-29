@@ -140,7 +140,7 @@ const DestinationDetails = ({
                             <Text className='text-primary font-bold text-xl'>Đóng góp</Text>
                             <View className='flex flex-row justify-between'>
                                 <TouchableOpacity
-                                    onPress={() => navigation.push('SearchDestinationRatingScreen')}
+                                    onPress={() => navigation.push('ReviewDestinationScreen', { location: location })}
                                     className='w-[48%] items-center justify-center rounded-full border-[#1e1e1e] border-2 py-4'
                                 >
                                     <Text className='text-primary text-base font-bold'>

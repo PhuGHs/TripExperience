@@ -13,6 +13,7 @@ export type TMessage = {
     messageType: 'text' | 'image' | 'file',
     roomId: number,
     userId: string
+    messageCreateAt: string
     user?: TUser;
     chatRoom?: TChatRoom,
     files?: TMessageMedia[]
@@ -28,5 +29,6 @@ export type TPostMessage = {
 
 export type TPostChatRoom = {
     roomName: string,
-    userIds: string[];
+    userIdsJoin?: string[];
+    userIdsLeave?: string[]
 }

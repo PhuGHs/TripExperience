@@ -4,29 +4,17 @@ import { TSuccessResponse } from '@type/response.type';
 
 export class ChatApi {
     static async getConversations(userId: string) : Promise<TSuccessResponse<TChatRoom[]>> {
-        const response = await http.get('/Chat/get-conversations', {
-            params: {
-                userId: userId
-            }
-        });
+        const response = await http.get(`/Chat/${userId}/conversations`);
         return response.data;
     }
 
     static async getMessages(roomId: number): Promise<TSuccessResponse<TMessage[]>> {
-        const response = await http.get('/Chat/get-messages', {
-            params: {
-                roomId: roomId
-            }
-        });
+        const response = await http.get(`/Chat/${roomId}/messages`);
         return response.data;
     };
 
     static async findConversations(key: string): Promise<TSuccessResponse<TChatRoom[]>> {
-        const response = await http.get('/Chat/find-conversations', {
-            params: {
-                search: key
-            }
-        });
+        const response = await http.get(`/Chat/conversations/${key}`);
         return response.data;
     }
 
