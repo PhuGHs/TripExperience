@@ -7,4 +7,9 @@ export class LocationApi {
         const response = await http.get(`/Location/get-locations-by-city?cityId=${cityId}`);
         return response.data;
     }
+
+    static async getLocationById(locationId: number): Promise<TSuccessResponse<TLocation>> {
+        const response = await http.get(`/Location/${locationId}`);
+        return response.data;
+    }
 }

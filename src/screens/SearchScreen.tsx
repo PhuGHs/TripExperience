@@ -47,22 +47,13 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
             >
                 <View className='h-[7%] justify-between flex-row items-center'>
                     <Text className='text-primary text-3xl font-bold'>Tìm kiếm</Text>
-                    <View className='flex flex-row items-center'>
-                        <Text className='text-base text-primary'>Địa điểm</Text>
-                        <Switch
-                            value={!isLocationSearch}
-                            thumbColor='#FF6F61'
-                            onValueChange={handleSwitchChange}
-                        />
-                        <Text className='text-base text-primary'>Bài viết</Text>
-                    </View>
                 </View>
                 <SearchBar
                     style={{ height: 55, width: '100%' }}
                     textInputStyle={{ fontSize: 18 }}
                     className='bg-gray-200 rounded-full my-4'
                     placeholderTextColor='#6b7280'
-                    placeholder={isLocationSearch ? 'Bạn muốn đi đâu?' : 'Bạn muốn tìm bài viết nào?'}
+                    placeholder='Bạn muốn đi đâu?'
                     spinnerVisibility={false}
                     returnKeyType='search'
                     onFocus={() => navigation.push('SearchCityScreen')}

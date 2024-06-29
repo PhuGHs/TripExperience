@@ -1,5 +1,6 @@
 import http from "@helper/axiosConfig";
 import { TCity } from "@type/city.type";
+import { TLocation, TSearch } from "@type/location.type";
 import { TSuccessResponse } from "@type/response.type";
 
 export class CityApi {
@@ -13,8 +14,12 @@ export class CityApi {
         return response.data;
     }
 
-    static async searchCity(searchString: string): Promise<TSuccessResponse<TCity[]>> {
-        const response = await http.get(`Location/search-locations-or-cities?searchString=${searchString}`);
+    static async search(keyword: string): Promise<TSuccessResponse<TSearch<TLocation | TCity>[]>> {
+        const response = await http.get('/Location/search-locations-or-cities', {
+            params: {
+                searchString: keyword
+            }
+        });
         return response.data;
     }
 }

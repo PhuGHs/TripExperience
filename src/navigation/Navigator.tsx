@@ -23,6 +23,7 @@ import PostDetailScreen from '@screen/PostDetailScreen';
 import NewPostScreen from '@screen/NewPostScreen';
 import { useAuth } from '@context/auth-context';
 import SearchCityScreen from '@screen/SearchCityScreen';
+import AddCityPlan from '@screen/AddCityPlan';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -73,6 +74,7 @@ const Navigator = () => {
                         <Stack.Screen name='PostDetailScreen' component={PostDetailScreen} />
                         <Stack.Screen name='NewPostScreen' component={NewPostScreen} />
                         <Stack.Screen name='SearchCityScreen' component={SearchCityScreen} />
+                        <Stack.Screen name='AddCityPlan' component={AddCityPlan} />
                     </>
                 )}
             </Stack.Navigator>

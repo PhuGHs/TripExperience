@@ -16,7 +16,7 @@ const FamousDestination = ({ press, destination }: IFamousDestination) => {
             onPress={press}
             style={styles.container}>
             <ImageBackground
-                source={require('@asset/images/benthanh.jpg')}
+                source={{ uri: `${destination.locationMedias[0].locationMediaUrl}` }}
                 style={styles.imageBackground}
                 imageStyle={styles.image}
             >

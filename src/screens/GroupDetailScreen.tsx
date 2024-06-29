@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GroupDetailScreenProps, RootStackParamList } from "@type/navigator.type";
 import { RouteProp } from '@react-navigation/native';
 import { ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -10,6 +10,8 @@ import { TCity } from "@type/city.type";
 import { CityApi } from "@api/city.api";
 import { TLocation } from "@type/location.type";
 import { LocationApi } from "@api/location.api";
+import { TPost } from "@type/post.type";
+import { PostApi } from "@api/post.api";
 
 const arr: Number[] = [1, 2, 3, 4, 5]
 
@@ -18,8 +20,10 @@ const GroupDetailScreen = ({
     navigation,
 }: GroupDetailScreenProps & { route: RouteProp<RootStackParamList, 'GroupDetailScreen'> }) => {
     const { groupId } = route.params;
+
     const [city, setCity] = useState<TCity>(null);
     const [location, setLocation] = useState<TLocation[]>([]);
+    const [post, setPost] = useState<TPost[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -29,6 +33,8 @@ const GroupDetailScreen = ({
                 setCity(data);
                 const { data: locations } = await LocationApi.getLocationByCity(groupId);
                 setLocation(locations);
+                const { data: posts } = await PostApi.getPostByCity(groupId);
+                setPost(posts);
                 setLoading(false);
             }
             catch (error) {
@@ -59,13 +65,13 @@ const GroupDetailScreen = ({
                     data={location}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => <FamousDestination destination={item}
-                        press={() => navigation.push('DestinationDetails', { destinationId: 1 })} />}
+                        press={() => navigation.push('DestinationDetails', { destinationId: item.locationId })} />}
                 />
             </View>
             <View>
                 <Text className='font-bold text-primary text-xl'>Các bài chia sẻ kinh nghiệm</Text>
                 <TouchableOpacity className="w-[150px] border-2 border-[#FF6F61] px-2 py-[7px] mt-2 rounded-2xl justify-center items-center"
-                    onPress={() => navigation.navigate('NewPostScreen')}
+                    onPress={() => navigation.navigate('NewPostScreen', { locations: location })}
                 >
                     <Text className="text-main">Thêm một bài viết</Text>
                 </TouchableOpacity>
@@ -81,9 +87,10 @@ const GroupDetailScreen = ({
                         style={{ paddingHorizontal: 16 }}
                         ListHeaderComponent={renderHeader}
                         showsVerticalScrollIndicator={false}
-                        data={arr}
+                        data={post}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item, index }) => <ReviewDestination press={() => navigation.push('PostDetailScreen', { postId: 1 })} />}
+                        renderItem={({ item, index }) => <ReviewDestination post={item}
+                            press={() => navigation.push('PostDetailScreen', { postId: item.postId })} />}
                     />
             }
 

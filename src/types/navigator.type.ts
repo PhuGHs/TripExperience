@@ -1,16 +1,17 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { TLocation, TRatingStatistic } from './location.type';
 
 export type RootStackParamList = {
     Welcome: undefined;
     SignIn: undefined;
     SignUp: undefined;
     DestinationDetails: { destinationId: number };
-    ReviewScreen: { destinationId: number };
+    ReviewScreen: { destinationId: number, ratingStatistic: TRatingStatistic, ratingAverage: number, locationName: string };
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
-    ReviewDestinationScreen: undefined;
+    ReviewDestinationScreen: { location: TLocation };
     PlanDetails: { planId: number };
-    UpdatePlan: { plantId: number };
+    UpdatePlan: { planId: number };
     DestinationReviewScreen: { provinceId: number }
     ProfileScreen: { userId: number }
     EditProfileScreen: undefined;
@@ -19,8 +20,9 @@ export type RootStackParamList = {
     SearchConversation: undefined;
     GroupDetailScreen: { groupId: number };
     PostDetailScreen: { postId: number };
-    NewPostScreen: undefined;
+    NewPostScreen: { locations: TLocation[] };
     SearchCityScreen: undefined;
+    AddCityPlan: { planId: number };
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -61,6 +63,7 @@ export type SearchConversationScreenProps = NativeStackScreenProps<
     'SearchConversation'
 >;
 export type SearchCityScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchCityScreen'>;
+export type AddCityPlanProps = NativeStackScreenProps<RootStackParamList, 'AddCityPlan'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

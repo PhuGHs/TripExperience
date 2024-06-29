@@ -10,6 +10,12 @@ export type TCommentMedia = {
     comment: TComment;
 };
 
+export type TCommentMediatoPost = {
+    commentMediaOrder: number;
+    commentMediaUrl: string;
+    commentId: number;
+}
+
 export type TPostMedia = {
     postMediaId: number;
     postMediaOrder: number;
