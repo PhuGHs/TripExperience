@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { TCity } from "@type/city.type";
+import { TCity } from '@type/city.type';
 
 interface IGroup {
     press: () => void;
@@ -12,9 +12,7 @@ interface IGroup {
 
 const Group = ({ press, city }: IGroup) => {
     return (
-        <TouchableOpacity
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={{ uri: `${city.cityUrl}` }}
                 style={styles.imageBackground}
@@ -32,13 +30,13 @@ const Group = ({ press, city }: IGroup) => {
             </ImageBackground>
         </TouchableOpacity>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         width: 230,
         paddingVertical: 8,
-        marginRight: 10
+        marginRight: 10,
     },
     imageBackground: {
         height: 220,

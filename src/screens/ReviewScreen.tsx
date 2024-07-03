@@ -5,7 +5,7 @@ import { faAngleLeft, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { RouteProp } from '@react-navigation/native';
 import { ReviewScreenScreenProps, RootStackParamList } from '@type/navigator.type';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { AdjustmentsHorizontalIcon } from 'react-native-heroicons/outline';
@@ -13,13 +13,73 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import StarRating from 'react-native-star-rating-widget';
 import BottomSheet, { BottomSheetMethods } from '@devvie/bottom-sheet';
 import { StarIcon } from 'react-native-heroicons/solid';
-import { dates, kinds, ratings, stars } from '@root/static/rating.static';
+import { dates, formatRating, getTotalFeedback, kinds, stars } from '@root/static/rating.static';
+import { TFeedback } from '@type/feedback.type';
+import { FeedbackApi } from '@api/feedback.api';
+import { LocationApi } from '@api/location.api';
+import { TRatingFilter, TStarFilter } from '@type/rating.type';
+import { ToastOptions, toast } from '@baronha/ting';
+
+const updateSelection = (items, id) => {
+    return items.map(item => ({
+        ...item,
+        selected: item.id === id,
+    }));
+};
 
 const ReviewScreen = ({
     route,
     navigation,
 }: ReviewScreenScreenProps & { route: RouteProp<RootStackParamList, 'ReviewScreen'> }) => {
+    const { ratingStatistic, destinationId, ratingAverage, locationName } = route.params;
     const sheetRef = useRef<BottomSheetMethods>(null);
+    const [feedbacks, setFeedbacks] = useState<TFeedback[]>([]);
+    const [selectedKinds, setSelectedKinds] = useState<TRatingFilter[]>(kinds);
+    const [selectedDates, setSelectedDates] = useState<TRatingFilter[]>(dates);
+    const [selectedStars, setSelectedStars] = useState<TStarFilter[]>(stars);
+    
+    const handleSelect = (id: number, type: 'kind' | 'date' | 'star') => {
+        if (type === 'kind') {
+            setSelectedKinds(prev => updateSelection(prev, id));
+        } else if (type === 'date') {
+            setSelectedDates(prev => updateSelection(prev, id));
+        } else if (type === 'star') {
+            setSelectedStars(prev => updateSelection(prev, id));
+        }
+    };
+
+    const handleFilter = async () => {
+        const selectedRating = selectedStars.find((item, index) => item.selected === true);
+        const selectedDate = selectedDates.find((item, index) => item.selected === true);
+        const selectedKind = selectedKinds.find((item, index) => item.selected === true);
+        try {
+            const { data, message } = await FeedbackApi.filterFeedbacks(selectedRating.id, selectedDate ? selectedDate.id : 0, selectedKind ? selectedKind.id : 0, destinationId);
+            setFeedbacks(data);
+            const options: ToastOptions = {
+                title: 'Đã lọc',
+                message: 'Bạn xem ngay nhé!',
+                preset: 'done',
+                backgroundColor: '#e2e8f0',
+            };
+            toast(options);
+            sheetRef.current.close();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const { data, message } = await LocationApi.getFeedbacks(destinationId);
+                setFeedbacks(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetch();
+    }, []);
+
     const renderHeader = () => (
         <View className='flex flex-1 space-y-3 mt-4'>
             <View className='flex flex-row justify-between items-center'>
@@ -31,25 +91,26 @@ const ReviewScreen = ({
                         <FontAwesomeIcon icon={faAngleLeft} size={30} />
                     </TouchableOpacity>
                 </View>
-                <Text className='text-primary font-bold text-xl'>Chợ Bến Thành</Text>
+                <Text className='text-primary font-bold text-xl'>{locationName}</Text>
                 <TouchableOpacity>
                     <FontAwesomeIcon icon={faInfoCircle} size={25} color='black' />
                 </TouchableOpacity>
             </View>
             <View className='items-center justify-center space-y-3'>
-                <Text className='text-primary font-bold text-4xl text-center'>4.0</Text>
-                <StarRating rating={4} color='#FAA300' onChange={() => {}} />
+                <Text className='text-primary font-bold text-4xl text-center'>{ratingAverage}</Text>
+                <StarRating rating={ratingAverage} color='#FAA300' onChange={() => {}} />
                 <Text className='text-secondary font-bold text-lg text-center'>
-                    dựa vào 23 đánh giá
+                    {getTotalFeedback(ratingStatistic) === 0 ? 'Chưa có ai đánh giá' : `dựa vào ${getTotalFeedback(ratingStatistic)} đánh giá`}
                 </Text>
             </View>
             <View className='flex flex-col border-b-[1px] border-[#7F7F81] py-3'>
-                {ratings.map((item, index) => (
+                {formatRating(ratingStatistic).map((item, index) => (
                     <RatingProgress rating={item} key={index} />
                 ))}
             </View>
             <View className='items-start justify-center border-b-[1px] border-[#7F7F81]'>
                 <Chip
+                    isSelected={false}
                     press={() => {
                         sheetRef.current?.open();
                     }}
@@ -60,6 +121,7 @@ const ReviewScreen = ({
                     </View>
                 </Chip>
             </View>
+            {feedbacks.length === 0 && <Text className='text-base'>Địa điểm này hiện chưa có bài đánh giá nào.</Text>}
         </View>
     );
 
@@ -67,9 +129,9 @@ const ReviewScreen = ({
         <SafeAreaView className='flex-1 px-4'>
             <FlatList
                 ListHeaderComponent={renderHeader}
-                data={[1, 2, 3, 4, 5]}
+                data={feedbacks}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => <Review />}
+                renderItem={({ item, index }) => <Review feedback={item} key={index} />}
             />
             <>
                 <BottomSheet ref={sheetRef} height='100%' style={{ backgroundColor: 'white' }}>
@@ -83,9 +145,9 @@ const ReviewScreen = ({
                                     Xếp hạng của khách du lịch
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {stars.map((item, index) => {
+                                    {selectedStars.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'star')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary text-base font-medium'>
                                                         {item.star}
@@ -102,9 +164,9 @@ const ReviewScreen = ({
                                     Ngày đánh giá
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {dates.map((item, index) => {
+                                    {selectedDates.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'date')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary font-medium text-base'>
                                                         {item.name}
@@ -120,27 +182,9 @@ const ReviewScreen = ({
                                     Loại hình chuyến đi
                                 </Text>
                                 <View className='flex flex-wrap flex-row w-full'>
-                                    {kinds.map((item, index) => {
+                                    {selectedKinds.map((item, index) => {
                                         return (
-                                            <Chip key={index} press={() => {}}>
-                                                <View className='flex flex-row space-x-1 items-center'>
-                                                    <Text className='text-primary font-medium text-base'>
-                                                        {item.name}
-                                                    </Text>
-                                                </View>
-                                            </Chip>
-                                        );
-                                    })}
-                                </View>
-                            </View>
-                            <View className='flex flex-col space-y-4'>
-                                <Text className='text-primary text-lg font-semibold'>
-                                    Loại hình chuyến đi
-                                </Text>
-                                <View className='flex flex-wrap flex-row w-full'>
-                                    {kinds.map((item, index) => {
-                                        return (
-                                            <Chip key={index} press={() => {}}>
+                                            <Chip isSelected={item.selected} key={index} press={() => handleSelect(item.id, 'kind')}>
                                                 <View className='flex flex-row space-x-1 items-center'>
                                                     <Text className='text-primary font-medium text-base'>
                                                         {item.name}
@@ -162,7 +206,9 @@ const ReviewScreen = ({
                                         Xoá bộ lọc
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity className='bg-main rounded-full px-2 py-3'>
+                                <TouchableOpacity
+                                    onPress={handleFilter}
+                                    className='bg-main rounded-full px-2 py-3'>
                                     <Text className='text-white font-medium text-base'>
                                         Hiển thị đánh giá
                                     </Text>

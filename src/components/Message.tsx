@@ -1,18 +1,34 @@
+import { Helper } from '@helper/index';
+import { TMessage } from '@type/chat.type';
 import React, { useState } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Linking } from 'react-native';
+import { PaperClipIcon } from 'react-native-heroicons/outline';
 
 interface IMessage {
     is_mine: boolean;
+    item: TMessage
 }
 
-const Message = ({ is_mine }: IMessage) => {
+const Message = ({ is_mine, item }: IMessage) => {
     const [visible, setVisible] = useState<boolean>(false);
+    const handleClickLink = () => {
+        console.log(item);
+        if (item.messageType === 'file') {
+            Linking.canOpenURL(item.messageMedias[0].url).then(supported => {
+                Linking.openURL(item.messageMedias[0].url);
+            });
+        }
+    };
+
+    if (item.content === '') {
+        return;
+    }
     return (
         <View className={`w-full ${is_mine ? 'items-end' : 'items-start'} my-1`}>
             <View className={`max-w-[70%] space-x-4 ${is_mine ? 'flex-row-reverse' : 'flex-row'}`}>
-                <View className='items-center justify-center'>
+                <View className='mt-5'>
                     <Image
-                        source={require('@asset/images/benthanh.jpg')}
+                        source={{ uri: item.user.avatar }}
                         style={{
                             width: 40,
                             height: 40,
@@ -28,9 +44,9 @@ const Message = ({ is_mine }: IMessage) => {
                             is_mine ? 'text-right mr-1' : 'text-left ml-1'
                         }`}
                     >
-                        Jackson
+                        {item.user.userName}
                     </Text>
-                    <TouchableOpacity
+                    {item.messageType === 'text' && <TouchableOpacity
                         className={`px-2 py-3 rounded-xl ${
                             is_mine ? 'bg-[#1D84C6]' : 'bg-neutral-300'
                         }`}
@@ -41,11 +57,21 @@ const Message = ({ is_mine }: IMessage) => {
                                 is_mine ? 'text-white' : 'text-slate-700'
                             }`}
                         >
-                            kkkkkkkkkkkkkkkkkkkkkkkksd ssssssssssssssssssssssssss
+                            {item.content}
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
+                    {item.messageType === 'file' &&
+                        <TouchableOpacity
+                            onPress={handleClickLink}
+                            className='bg-slate-300 py-3 px-4 rounded-xl'>
+                            <View className='flex flex-row space-x-3 items-center'>
+                                <PaperClipIcon color='black' size={25}/>
+                                <Text className='text-primary'>File</Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
                     {visible && (
-                        <Text className={`${is_mine ? 'text-right' : 'text-left'}`}>5:04 PM</Text>
+                        <Text className={`${is_mine ? 'text-right' : 'text-left'}`}>{Helper.formatDate1(item.messageCreateAt)}</Text>
                     )}
                 </View>
             </View>

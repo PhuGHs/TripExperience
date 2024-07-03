@@ -12,9 +12,7 @@ interface IFamousDestination {
 
 const FamousDestination = ({ press, destination }: IFamousDestination) => {
     return (
-        <TouchableOpacity
-            onPress={press}
-            style={styles.container}>
+        <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
                 source={{ uri: `${destination.locationMedias[0].locationMediaUrl}` }}
                 style={styles.imageBackground}
@@ -49,7 +47,7 @@ const styles = StyleSheet.create({
     container: {
         width: 220,
         paddingVertical: 8,
-        marginRight: 8
+        marginRight: 8,
     },
     imageBackground: {
         height: 250,

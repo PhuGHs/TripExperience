@@ -5,6 +5,7 @@ export type Rating = {
     index: number;
     type: 'Xuất xắc' | 'Rất tốt' | 'Trung bình' | 'Tồi' | 'Tồi tệ';
     percentage: number;
+    number: number
 };
 
 interface IRatingProgress {
@@ -26,7 +27,7 @@ const RatingProgress = ({ rating }: IRatingProgress) => {
             </View>
             <View
                 className='rounded-full'
-                style={{ width: '75%', height: 10, backgroundColor: '#CCCCCC' }}
+                style={{ width: '70%', height: 10, backgroundColor: '#CCCCCC' }}
             >
                 <View
                     className='rounded-full'
@@ -38,6 +39,9 @@ const RatingProgress = ({ rating }: IRatingProgress) => {
                         left: 0,
                     }}
                 ></View>
+            </View>
+            <View style={{ width: '6%' }} className='items-center'>
+                <Text style={{ color: '#555555', fontSize: 16 }}>{rating.number}</Text>
             </View>
         </View>
     );

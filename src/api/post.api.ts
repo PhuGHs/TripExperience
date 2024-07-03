@@ -34,4 +34,9 @@ export class PostApi {
         const response = await http.get(`/Post/${postId}`);
         return response.data;
     }
+
+    static async getTop10Post(): Promise<TSuccessResponse<TPost[]>> {
+        const response = await http.get('/Post/top-10-post');
+        return response.data;
+    }
 }

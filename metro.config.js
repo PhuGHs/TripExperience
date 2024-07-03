@@ -19,6 +19,7 @@ const customConfig = {
       '@asset': `${__dirname}/src/assets`,
       '@context': `${__dirname}/src/context`,
       '@helper': `${__dirname}/src/helpers`,
+      '@static': `${__dirname}/src/static`,
       '@api': `${__dirname}/src/api`,
       '@root': `${__dirname}/src`,
     },

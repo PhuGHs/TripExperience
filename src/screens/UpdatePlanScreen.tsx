@@ -87,11 +87,12 @@ const UpdatePlanScreen = ({
     }
 
     return (
-        <SafeAreaView className="flex-1 my-2">
-            <View className="flex flex-row justify-start mx-4">
+        <SafeAreaView className='flex-1 my-2'>
+            <View className='flex flex-row justify-start mx-4'>
                 <TouchableOpacity
                     onPress={() => navigation.pop()}
-                    className='p-2 rounded-xl border border-slate-300'>
+                    className='p-2 rounded-xl border border-slate-300'
+                >
                     <FontAwesomeIcon icon={faAngleLeft} size={20} />
                 </TouchableOpacity>
             </View>
@@ -145,7 +146,7 @@ const UpdatePlanScreen = ({
             }
 
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default UpdatePlanScreen;

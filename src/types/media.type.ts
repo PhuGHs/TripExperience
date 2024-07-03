@@ -25,16 +25,23 @@ export type TPostMedia = {
 };
 
 export type TFeedbackMedia = {
-    feedbackMediaId: number;
-    feedbackMediaOrder: string;
+    feedbackMediaId?: number;
+    feedbackMediaOrder: number;
     feedbackMediaUrl: string;
     feedbackId: number;
-    feedback: TFeedback;
+    feedback?: TFeedback;
 };
 
 export type TLocationMedia = {
-    locationMediaId: number,
-    locationMediaOrder: number,
-    locationMediaUrl: string,
-    locationId: number,
+    locationMediaId: number;
+    locationMediaOrder: number;
+    locationMediaUrl: string;
+    locationId: number;
 };
+
+export type TMessageMedia = {
+    id?: number,
+    messageId?: number,
+    order: number,
+    url: string
+}

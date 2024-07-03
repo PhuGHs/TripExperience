@@ -18,7 +18,7 @@ import { TPushImage } from "@type/image.type";
 import { CommentApi } from "@api/comment.api";
 import { ToastOptions, toast } from "@baronha/ting";
 
-const arr: Number[] = [1, 2, 3, 4, 5]
+const arr: Number[] = [1, 2, 3, 4, 5];
 
 const PostDetailScreen = ({
     route,
@@ -149,13 +149,16 @@ const PostDetailScreen = ({
 
     const renderHeader = () => (
         <>
-            <View className="flex flex-row items-center mt-2 mb-5">
+            <View className='flex flex-row items-center mt-2 mb-5'>
                 <TouchableOpacity
                     onPress={() => navigation.pop()}
-                    className='p-2 rounded-xl border border-slate-300'>
+                    className='p-2 rounded-xl border border-slate-300'
+                >
                     <FontAwesomeIcon icon={faAngleLeft} size={20} />
                 </TouchableOpacity>
-                <Text className="flex-1 text-center mr-[20px] text-primary text-xl font-bold">Chi tiết bài viết</Text>
+                <Text className='flex-1 text-center mr-[20px] text-primary text-xl font-bold'>
+                    Chi tiết bài viết
+                </Text>
             </View>
             <View className='space-y-2 mb-5'>
                 <View className='flex flex-row space-x-2'>
@@ -182,7 +185,7 @@ const PostDetailScreen = ({
                     />
                 </View>
             </View>
-            <View className="flex space-y-2">
+            <View className='flex space-y-2'>
                 <Text className='text-primary font-bold text-xl'>Bình luận</Text>
                 <View className="flex border-[2px] border-[#E3E1D9] rounded-xl px-2 pb-2 justify-around mb-5">
                     <TextInput placeholder="Viết một điều gì đó ..."
@@ -215,7 +218,7 @@ const PostDetailScreen = ({
                 </View>
             </View>
         </>
-    )
+    );
     return (
         <SafeAreaView className="flex flex-1 h-full w-full">
             {
@@ -231,7 +234,7 @@ const PostDetailScreen = ({
             }
 
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default PostDetailScreen;

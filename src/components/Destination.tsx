@@ -1,18 +1,21 @@
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TLocation } from '@type/location.type';
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface IDestination {
     press: () => void;
+    location: TLocation
 }
 
-const Destination = ({ press }: IDestination) => {
+const Destination = ({ press, location }: IDestination) => {
+    const { locationMedias, locationDescription, city, locationRateAverage } = location;
     return (
         <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
-                source={require('@asset/images/benthanh.jpg')}
+                source={{uri: locationMedias[0].locationMediaUrl}}
                 style={styles.imageBackground}
                 imageStyle={styles.image}
             >
@@ -21,17 +24,17 @@ const Destination = ({ press }: IDestination) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-2xl'>Chợ Bến Thành</Text>
-                    <Text className='text-white'>Mô tả ngắn về Chợ Bến Thành</Text>
+                    <Text className=' font-bold text-white text-2xl'>{location.locationName}</Text>
+                    <Text className='text-white' numberOfLines={1}>{locationDescription}</Text>
                     <View className='flex flex-row justify-between'>
                         <View>
                             <View className='flex flex-row items-center space-x-2'>
-                                <Text className='font-bold text-base text-orange-400'>4.7</Text>
+                                <Text className='font-bold text-base text-orange-400'>{location.locationRateAverage}</Text>
                                 <FontAwesomeIcon icon={faStar} color='#fb923c' size={25} />
                             </View>
                             <View className='flex flex-row items-center space-x-2'>
                                 <Text className='font-bold text-base text-white'>
-                                    Ho Chi Minh City
+                                    {location.city.cityName}
                                 </Text>
                                 <FontAwesomeIcon icon={faLocationDot} color='white' size={25} />
                             </View>

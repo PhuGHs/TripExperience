@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { getData, storeData } from './asyncStorage';
 
-export const BASE_ENDPOINT = 'https://ed71-171-250-164-150.ngrok-free.app/api';
+export const BASE_ENDPOINT = 'https://b60b-171-250-164-150.ngrok-free.app/api';
 const URL_LOGIN = '/Auth/login';
 
 class Http {

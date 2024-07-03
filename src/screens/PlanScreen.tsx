@@ -58,7 +58,7 @@ const PlanScreen = ({ navigation }: TabsScreenProps) => {
         <View className='flex-row justify-start mb-10'>
             <Text className='text-3xl text-primary font-bold'>Lập kế hoạch</Text>
         </View>
-    )
+    );
     return (
         <>
             <SafeAreaView className='flex flex-1 h-full w-full'>
@@ -88,12 +88,15 @@ const PlanScreen = ({ navigation }: TabsScreenProps) => {
                 }
 
             </SafeAreaView>
-            <BottomSheet ref={sheetRef} height="43%">
+            <BottomSheet ref={sheetRef} height='43%'>
                 <View className='h-full'>
-                    <Text className='text-center text-primary font-bold text-base mb-5'>Tạo Chuyến đi</Text>
+                    <Text className='text-center text-primary font-bold text-base mb-5'>
+                        Tạo Chuyến đi
+                    </Text>
                     <View className='px-5 mb-5'>
                         <Text className='text-primary font-bold mb-2'>Tên chuyến đi</Text>
-                        <TextInput className="border-[2px] border-black rounded px-3 py-2 text-primary font-bold"
+                        <TextInput
+                            className='border-[2px] border-black rounded px-3 py-2 text-primary font-bold'
                             placeholder='Ví dụ: Cuối tuần ở NYC'
                             value={planName}
                             onChangeText={(e) => setPlanName(e)}
@@ -107,11 +110,9 @@ const PlanScreen = ({ navigation }: TabsScreenProps) => {
                             <Text className='font-bold text-white'>Tạo Chuyến đi</Text>
                         </TouchableOpacity>
                     </View>
-
                 </View>
             </BottomSheet>
         </>
-
     );
 };
 

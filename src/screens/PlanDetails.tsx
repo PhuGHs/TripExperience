@@ -93,6 +93,11 @@ const PlanDetails = ({
                         <ScrollView className="px-4 my-3">
                             <Text className="font-bold text-xl text-primary">{planInfo.travelPlanName}</Text>
                             <Text className="my-1 text-primary">Của {planInfo.user.userName} - {plan.length} mục</Text>
+                            <TouchableOpacity
+                                onPress={() => navigation.push('MapViewScreen', { locations: plan})}
+                                className="bg-black px-4 py-3 w-[30%] items-center rounded-xl">
+                                <Text className="text-white">Xem map</Text>
+                            </TouchableOpacity>
                             <View className="flex flex-row space-x-2">
                                 <TouchableOpacity className="flex-row border-2 border-slate-400 w-[110px] px-2 py-[7px] mt-2 rounded-2xl justify-center items-center"
                                 >

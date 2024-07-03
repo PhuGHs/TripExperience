@@ -36,7 +36,7 @@ const Plan = ({ press, plan }: IPlan) => {
             <Text className='mb-2 font-bold text-primary'>{plan.travelPlanName}</Text>
             <Text className='font-medium text-primary'>{formatDate(plan.planCreateAt)}</Text>
         </View>
-    )
-}
+    );
+};
 
 export default Plan;

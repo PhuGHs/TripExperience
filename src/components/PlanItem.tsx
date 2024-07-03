@@ -24,12 +24,9 @@ const PlanItem = ({ press, data }: IPlanItem) => {
                     <Text className='text-primary font-medium'>{data.location.locationAddress}</Text>
                 </View>
             </View>
-            <Text className='font-bold mb-3'
-                onPress={press}
-            >Thêm nhận xét</Text>
             <View className='border-b border-[#E3E1D9] w-full' />
         </View>
-    )
-}
+    );
+};
 
 export default PlanItem;

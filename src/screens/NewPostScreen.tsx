@@ -1,26 +1,26 @@
-import React, { useContext, useRef, useState } from "react";
-import { NewPostScreenProps, RootStackParamList } from "@type/navigator.type";
+import React, { useContext, useRef, useState } from 'react';
+import { NewPostScreenProps, RootStackParamList } from '@type/navigator.type';
 import { RouteProp } from '@react-navigation/native';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { MapPinIcon, PhotoIcon } from "react-native-heroicons/solid";
-import BottomSheet, { BottomSheetMethods } from "@devvie/bottom-sheet";
-import Chip from "@component/Chip";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { MapPinIcon, PhotoIcon } from 'react-native-heroicons/solid';
+import BottomSheet, { BottomSheetMethods } from '@devvie/bottom-sheet';
+import Chip from '@component/Chip';
 import {
     ImageLibraryOptions,
     ImagePickerResponse,
     launchImageLibrary,
 } from 'react-native-image-picker';
-import { ToastOptions, toast } from "@baronha/ting";
-import { UserContext } from "@context/user-context";
-import { Asset } from "react-native-image-picker";
-import { XMarkIcon } from "react-native-heroicons/outline";
-import { TContentPost, TPost } from "@type/post.type";
-import { useInput } from "@hook/useInput";
-import { TPushImage } from "@type/image.type";
-import { PostApi } from "@api/post.api";
+import { ToastOptions, toast } from '@baronha/ting';
+import { UserContext } from '@context/user-context';
+import { Asset } from 'react-native-image-picker';
+import { XMarkIcon } from 'react-native-heroicons/outline';
+import { TContentPost, TPost } from '@type/post.type';
+import { useInput } from '@hook/useInput';
+import { TPushImage } from '@type/image.type';
+import { PostApi } from '@api/post.api';
 
 const NewPostScreen = ({
     route,
@@ -31,7 +31,7 @@ const NewPostScreen = ({
 
     const [locationId, setLocationId] = useState<number>(null);
     const [imageList, setImageList] = useState<Asset[]>([]);
-    const [locationName, setLocationName] = useState<string>("");
+    const [locationName, setLocationName] = useState<string>('');
     const [isImage, setIsImage] = useState<boolean>(false);
     const sheetRef = useRef<BottomSheetMethods>(null);
 
@@ -52,7 +52,7 @@ const NewPostScreen = ({
         setLocationId(id);
         setLocationName(name);
         sheetRef.current.close();
-    }
+    };
 
     const handleRemoveImage = (fileName) => {
         setImageList((prev) => prev.filter((item, index) => item.fileName !== fileName));
@@ -78,7 +78,7 @@ const NewPostScreen = ({
         if (locationId === null) {
             const options: ToastOptions = {
                 title: 'Thêm bài viết không thành công',
-                message: "Vui lòng chọn địa điểm",
+                message: 'Vui lòng chọn địa điểm',
                 preset: 'error',
                 backgroundColor: '#e2e8f0',
             };
@@ -124,7 +124,7 @@ const NewPostScreen = ({
                 toast(options);
             }
         }
-    }
+    };
 
     return (
         <>
@@ -149,7 +149,7 @@ const NewPostScreen = ({
                         </View>
                         <View className='items-start justify-around'>
                             <Text className='font-bold text-slate-700 text-lg'>{user.userName}</Text>
-                            <Text className='text-base italic'>{locationName !== "" ? "Tại " + locationName : "Địa điểm X"}</Text>
+                            <Text className='text-base italic'>{locationName !== '' ? 'Tại ' + locationName : 'Địa điểm X'}</Text>
                         </View>
                     </View>
                     <TextInput placeholder="Bạn muốn chia sẻ điều gì"
@@ -212,7 +212,7 @@ const NewPostScreen = ({
                     <View className='flex flex-wrap flex-row px-5 mb-5 w-full'>
                         {locations.map((item, index) => {
                             return (
-                                <Chip key={index} press={() => HandleLocation(item.locationId, item.locationName)}>
+                                <Chip isSelected={false} key={index} press={() => HandleLocation(item.locationId, item.locationName)}>
                                     <View className='flex flex-row space-x-1 items-center'>
                                         <Text className='text-primary font-medium text-base'>
                                             {item.locationName}
@@ -226,7 +226,7 @@ const NewPostScreen = ({
             </BottomSheet>
         </>
 
-    )
-}
+    );
+};
 
 export default NewPostScreen;

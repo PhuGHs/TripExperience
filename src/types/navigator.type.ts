@@ -1,28 +1,31 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { TLocation, TRatingStatistic } from './location.type';
+import { TLocation, TLocationGet, TRatingStatistic } from './location.type';
+import { TCity } from './city.type';
 
 export type RootStackParamList = {
     Welcome: undefined;
     SignIn: undefined;
-    SignUp: undefined;
+    SignUp: { city?: TCity };
     DestinationDetails: { destinationId: number };
     ReviewScreen: { destinationId: number, ratingStatistic: TRatingStatistic, ratingAverage: number, locationName: string };
     Tabs: undefined;
     SearchDestinationRatingScreen: undefined;
     ReviewDestinationScreen: { location: TLocation };
     PlanDetails: { planId: number };
-    UpdatePlan: { planId: number };
-    DestinationReviewScreen: { provinceId: number }
+    UpdatePlan: { plantId: number };
+    DestinationReviewScreen: { provinceId: number, provinceName: string }
     ProfileScreen: { userId: number }
-    EditProfileScreen: undefined;
+    EditProfileScreen: {city?: TCity};
     ChatScreen: undefined;
-    MessageScreen: { conversationId: number };
+    MessageScreen: { conversationId: number, roomName: string };
     SearchConversation: undefined;
     GroupDetailScreen: { groupId: number };
     PostDetailScreen: { postId: number };
     NewPostScreen: { locations: TLocation[] };
-    SearchCityScreen: undefined;
+    SearchCityScreen: { type: 'signup' | 'edit'};
+    CreateChatRoom: undefined;
     AddCityPlan: { planId: number };
+    MapViewScreen: { locations: TLocationGet[] };
 };
 
 export type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
@@ -55,15 +58,28 @@ export type EditProfileScreenScreenProps = NativeStackScreenProps<
 >;
 export type ChatScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'ChatScreen'>;
 export type MessageScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'MessageScreen'>;
-export type GroupDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'GroupDetailScreen'>;
+export type GroupDetailScreenProps = NativeStackScreenProps<
+    RootStackParamList,
+    'GroupDetailScreen'
+>;
 export type PostDetailScreenProps = NativeStackScreenProps<RootStackParamList, 'PostDetailScreen'>;
 export type NewPostScreenProps = NativeStackScreenProps<RootStackParamList, 'NewPostScreen'>;
 export type SearchConversationScreenProps = NativeStackScreenProps<
     RootStackParamList,
     'SearchConversation'
 >;
+export type SearchCityScreenProps = NativeStackScreenProps<
+    RootStackParamList,
+    'SearchCityScreen'
+>;
+
+export type CreateChatRoomScreenProps = NativeStackScreenProps<
+    RootStackParamList,
+    'CreateChatRoom'
+>;
 export type SearchCityScreenScreenProps = NativeStackScreenProps<RootStackParamList, 'SearchCityScreen'>;
 export type AddCityPlanProps = NativeStackScreenProps<RootStackParamList, 'AddCityPlan'>;
+export type MapViewScreenProps = NativeStackScreenProps<RootStackParamList, 'MapViewScreen'>;
 
 export type BottomTabParamList = {
     HomeScreen: undefined;

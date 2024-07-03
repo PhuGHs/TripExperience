@@ -1,7 +1,7 @@
-import http from "@helper/axiosConfig";
-import { TCity } from "@type/city.type";
-import { TLocation, TSearch } from "@type/location.type";
-import { TSuccessResponse } from "@type/response.type";
+import http from '@helper/axiosConfig';
+import { TCity } from '@type/city.type';
+import { TLocation, TSearch } from '@type/location.type';
+import { TSuccessResponse } from '@type/response.type';
 
 export class CityApi {
     static async getAll(): Promise<TSuccessResponse<TCity[]>> {
@@ -20,6 +20,10 @@ export class CityApi {
                 searchString: keyword
             }
         });
+        return response.data;
+    }
+    static async getProvinces(userId: string): Promise<TSuccessResponse<TCity[]>> {
+        const response = await http.get(`/City/${userId}/city-has-feedback`);
         return response.data;
     }
 }

@@ -16,6 +16,7 @@ module.exports = {
             '@context': './src/context',
             '@helper': './src/helpers',
             '@api': './src/api',
+            '@static': './src/static',
             '@root': './src'
           }
         }

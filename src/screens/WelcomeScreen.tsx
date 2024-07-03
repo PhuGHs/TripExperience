@@ -25,7 +25,7 @@ const WelcomeScreen = ({ navigation }: WelcomeScreenProps) => {
                 </View>
                 <View className='space-y-4 mt-4'>
                     <Text className='text-2xl mx-4 font-bold text-[#1E1E1E]'>
-                        Du lịch mọi nơi trên Thế giới cùng TripX
+                        Du lịch mọi nơi cùng TripX
                     </Text>
                     <Text className='text-lg mx-4 text-[#7F7F81]'>
                         Kết nối với những người du lịch từ khắp nơi trên thế giới và chia sẻ những

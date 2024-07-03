@@ -1,16 +1,30 @@
+import { ChatApi } from '@api/chat.api';
 import Conversation from '@component/Conversation';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TChatRoom } from '@type/chat.type';
 import { SearchConversationScreenProps } from '@type/navigator.type';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, TouchableOpacity, View, Text, Image, FlatList } from 'react-native';
 import SearchBar from 'react-native-dynamic-search-bar';
 
 const arr: number[] = [1, 2, 3, 4];
 
 const SearchConversation = ({ navigation }: SearchConversationScreenProps) => {
+    const [conversations, setConversations] = useState<TChatRoom[]>([]);
+
+    
+    const handleSearch = async (text: string) => {
+        try {
+            const {data, message} = await ChatApi.findConversations(text);
+            setConversations(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleTextChange = (text) => {
-        console.log(text);
+        handleSearch(text);
     };
 
     const renderSeparator = () => (
@@ -44,15 +58,14 @@ const SearchConversation = ({ navigation }: SearchConversationScreenProps) => {
                 placeholder='Tìm kiếm cuộc trò chuyện'
                 spinnerVisibility={false}
                 returnKeyType='search'
-                onFocus={() => navigation.push('SearchConversation')}
                 onChangeText={handleTextChange}
             />
             <FlatList
-                data={arr}
+                data={conversations}
                 keyExtractor={(item, index) => index.toString()}
                 ItemSeparatorComponent={renderSeparator}
                 renderItem={({ item, index }) => (
-                    <Conversation press={() => navigation.push('MessageScreen')} />
+                    <Conversation conversation={item} key={index} press={() => navigation.push('MessageScreen', { conversationId: item.roomId, roomName: item.roomName })} />
                 )}
             />
         </SafeAreaView>

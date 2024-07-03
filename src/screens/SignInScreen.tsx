@@ -58,7 +58,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
             if (error.response && error.response.status === 400) {
                 const { title, status } = error.response.data;
                 const options: ToastOptions = {
-                    title: 'Login failed',
+                    title: 'Lỗi đăng nhập',
                     message: title,
                     preset: 'error',
                     backgroundColor: '#e2e8f0',
@@ -92,7 +92,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
         hasError: passwordHasError,
     } = useInput({
         defaultValue: '',
-        validationFn: (email: string) => Validator.validateEmail(email),
+        validationFn: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$/.test(value),
     });
     return (
         <>
@@ -146,9 +146,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
                         placeholderTextColor={'#94a3b8'}
                         className='px-5 py-4 bg-slate-100 text-base rounded-full text-slate-700 border-[1px] border-slate-300'
                     />
-                    {passwordHasError && passwordDidEdit && (
-                        <Text className='text-red-400 ml-3'>Mật khẩu không phù hợp</Text>
-                    )}
+                    {passwordHasError && passwordDidEdit && <Text className='text-main'>Mật khẩu phải có tối thiểu 6 ký tự, bao gồm ký tự đặc biệt, một chữ cái thường và một chữ cái in hoa</Text>}
                 </View>
                 <View className='items-end'>
                     <TouchableOpacity>
@@ -167,7 +165,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
             </ScrollView>
             {!executed && (
                 <View style={styles.overlay}>
-                    <ActivityIndicator size='large' color='#0000ff' />
+                    <ActivityIndicator size='large' color='#FF6F61' />
                 </View>
             )}
         </>

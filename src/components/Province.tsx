@@ -1,18 +1,21 @@
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { TCity } from '@type/city.type';
 import React from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface IDestination {
     press: () => void;
+    province: TCity
 }
 
-const Province = ({ press }: IDestination) => {
+const Province = ({ press, province }: IDestination) => {
+    const { cityUrl, cityName, feedbackQuantity } = province;
     return (
         <TouchableOpacity onPress={press} style={styles.container}>
             <ImageBackground
-                source={require('@asset/images/benthanh.jpg')}
+                source={{ uri: cityUrl}}
                 style={styles.imageBackground}
                 imageStyle={styles.image}
             >
@@ -21,8 +24,8 @@ const Province = ({ press }: IDestination) => {
                     style={styles.gradient}
                 />
                 <View className='absolute bottom-0 p-4 w-full space-y-2'>
-                    <Text className=' font-bold text-white text-2xl'>Hà Nội</Text>
-                    <Text className='text-white'>4 đánh giá</Text>
+                    <Text className=' font-bold text-white text-2xl'>{cityName}</Text>
+                    <Text className='text-white'>{feedbackQuantity} đánh giá</Text>
                 </View>
             </ImageBackground>
         </TouchableOpacity>

@@ -27,7 +27,8 @@ const ReviewDestination = ({ press, post }: IReviewDestination) => {
     }
 
     return (
-        <TouchableOpacity className='bg-white w-[95%] p-3 rounded-2xl space-y-2 mr-5 ml-1 my-3'
+        <TouchableOpacity
+            className='bg-white w-[95%] p-3 rounded-2xl space-y-2 mr-5 ml-1 my-3'
             style={{ elevation: 2 }}
             onPress={press}
         >

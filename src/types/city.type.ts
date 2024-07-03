@@ -1,6 +1,7 @@
 export type TCity = {
-    cityId: number;
-    cityDescription: string;
-    cityName: string;
-    cityUrl: string;
+    cityId: number,
+    cityName: string,
+    cityDescription: string,
+    cityUrl: string,
+    feedbackQuantity?: number
 }

@@ -1,7 +1,8 @@
 import ArrowButton from '@component/ArrowButton';
 import { useAuth } from '@context/auth-context';
+import { UserContext } from '@context/user-context';
 import { TabsScreenProps } from '@type/navigator.type';
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import {
     Cog6ToothIcon,
@@ -13,12 +14,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountScreen = ({ navigation }: TabsScreenProps) => {
     const { signOut } = useAuth();
+    const { user } = useContext(UserContext);
     return (
         <SafeAreaView className='flex flex-1 mx-4 mt-4'>
             <View className='h-[10%] flex flex-row justify-between items-center'>
                 <Text className='text-primary text-3xl font-bold'>Tài khoản</Text>
                 <Image
-                    source={require('@asset/images/benthanh.jpg')}
+                    source={{ uri: user.avatar }}
                     style={{ width: 50, height: 50, borderRadius: 50 / 2 }}
                 />
             </View>

@@ -1,6 +1,6 @@
-import { TComment } from "@type/comment.type";
-import React, { useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import { TComment } from '@type/comment.type';
+import React, { useEffect, useState } from 'react';
+import { Image, Text, View } from 'react-native';
 
 export type IComment = {
     comment?: TComment
@@ -11,17 +11,17 @@ const Comment = ({ comment }: IComment) => {
         const inputDate = new Date(date);
 
         const year = inputDate.getUTCFullYear();
-        const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
-        const day = inputDate.getDate().toString().padStart(2, "0");
+        const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = inputDate.getDate().toString().padStart(2, '0');
 
         const time =
-            inputDate.getHours().toString().padStart(2, "0") +
-            ":" +
-            inputDate.getMinutes().toString().padStart(2, "0");
+            inputDate.getHours().toString().padStart(2, '0') +
+            ':' +
+            inputDate.getMinutes().toString().padStart(2, '0');
 
         const formattedDate = `${day}/${month}/${year}  ${time}  `;
         return formattedDate;
-    }
+    };
 
     return (
         <View className='flex flex-row space-x-2 mb-4'>
@@ -46,7 +46,7 @@ const Comment = ({ comment }: IComment) => {
                 <Text className='text-primary italic mt-2 text-[#686D76]'>{formatDate(comment.commentDate)}</Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 export default Comment;

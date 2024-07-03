@@ -8,7 +8,7 @@ import FamousDestination from '@component/FamousDestination';
 import { TCity } from '@type/city.type';
 import { CityApi } from '@api/city.api';
 
-const arr: Number[] = [1, 2, 3, 4, 5]
+const arr: number[] = [1, 2, 3, 4, 5];
 
 const SearchScreen = ({ navigation }: TabsScreenProps) => {
     const [isLocationSearch, setLocationSearch] = useState<boolean>(false);
@@ -42,9 +42,7 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
 
     return (
         <SafeAreaView className='flex flex-1 mx-4 mt-4'>
-            <ScrollView className='h-full'
-                showsVerticalScrollIndicator={false}
-            >
+            <ScrollView className='h-full' showsVerticalScrollIndicator={false}>
                 <View className='h-[7%] justify-between flex-row items-center'>
                     <Text className='text-primary text-3xl font-bold'>Tìm kiếm</Text>
                 </View>
@@ -68,7 +66,7 @@ const SearchScreen = ({ navigation }: TabsScreenProps) => {
                                 showsHorizontalScrollIndicator={false}
                                 data={city}
                                 keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item, index }) => <Group city={item} press={() => { navigation.navigate('GroupDetailScreen', { groupId: item.cityId }) }} />}
+                                renderItem={({ item, index }) => <Group city={item} press={() => { navigation.navigate('GroupDetailScreen', { groupId: item.cityId }); }} />}
                             />
                     }
 

@@ -6,14 +6,31 @@ import { SearchDestinationRatingScreenScreenProps } from '@type/navigator.type';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import PersonalRating from '@component/PersonalRating';
+import { TCity } from '@type/city.type';
+import { TLocation, TSearch } from '@type/location.type';
+import { SearchApi } from '@api/search.api';
 
 const arr: number[] = [1, 2, 3];
 
 const SearchDestinationRatingScreen = ({
     navigation,
 }: SearchDestinationRatingScreenScreenProps) => {
+    const [results, setResults] = useState<TSearch<TLocation | TCity>[]>([]);
+    const handleSearch = async (text: string) => {
+        try {
+            const { data, message } = await SearchApi.search(text);
+            setResults(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleTextChange = (text) => {
-        console.log(text);
+        if (text === '') {
+            setResults([]);
+        } else {
+            handleSearch(text);
+        }
     };
 
     return (
@@ -38,11 +55,14 @@ const SearchDestinationRatingScreen = ({
                 onChangeText={handleTextChange}
             />
             <FlatList
-                data={arr}
+                data={results}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                    <PersonalRating press={() => navigation.push('ReviewDestinationScreen')} />
-                )}
+                renderItem={({ item, index }) => {
+                    if (item.isLocation) {
+                        return <PersonalRating location={item.result as TLocation} press={() => navigation.push('ReviewDestinationScreen', { location: item.result as TLocation })} />;
+                    }
+                    return;
+                }}
             />
         </SafeAreaView>
     );

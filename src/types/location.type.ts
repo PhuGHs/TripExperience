@@ -5,7 +5,7 @@ export type TLocation = {
     locationId: number;
     locationName: string;
     locationAddress: string;
-    locationOpenTiem: string;
+    locationOpenTime: string;
     locationLongtitude: number;
     locationLatitude: number;
     city: TCity;
@@ -13,6 +13,7 @@ export type TLocation = {
     locationRateAverage: number;
     ratingStatistic: TRatingStatistic;
     locationMedias: TLocationMedia[]
+    locationDescription: string,
 };
 
 export type TRatingStatistic = {
